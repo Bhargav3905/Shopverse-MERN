@@ -1,42 +1,92 @@
-import { useNavigate } from 'react-router-dom'
-import axiosInstance from '../services/axiosInstance';
-import { isAdmin } from '../utils/auth';
+import { useNavigate } from "react-router-dom";
+import { isAdmin } from "../utils/auth";
 
 const Home = () => {
 
     const navigate = useNavigate();
+
     const admin = isAdmin();
+
     const userName = localStorage.getItem("fullName");
 
     const handlePrimaryButton = () => {
+
         navigate(admin ? "/admin-dashboard" : "/shop");
+
     };
 
     return (
-        <>
-            <div className="container mt-5">
-                <div className="row align-items-center">
 
-                    <div className="col-lg-6 mb-5 mb-lg-0">
-                        <h1>Welcome {userName ? `, ${userName}` : "to ShopVerse"}</h1>
-                        <h3 className="mb-4 fs-6">
-                            Discover premium products carefully selected to bring you the perfect
-                            combination of quality, style, and affordability. Browse our latest
-                            collection and enjoy a seamless shopping experience from start to finish.
-                        </h3>
-                        <button onClick={handlePrimaryButton} className="btn btn-primary btn-lg px-4 rounded-1">
-                            {admin ? "Go to Dashboard" : "Shop Now"}
-                        </button>
+        <section className="hero-section">
+
+            <div className="container">
+
+                <div className="row align-items-center gy-5">
+
+                    <div className="col-lg-6">
+
+                        <span className="hero-badge">
+                            Welcome to ShopVerse
+                        </span>
+
+                        <h1 className="hero-title">
+
+                            {userName
+                                ? `Welcome, ${userName}`
+                                : "Discover Your Next Favorite Product"}
+
+                        </h1>
+
+                        <p className="hero-description">
+
+                            Discover premium products carefully selected
+                            to deliver quality, affordability and style.
+                            Enjoy a fast, secure and seamless shopping
+                            experience from anywhere.
+
+                        </p>
+
+                        <div className="d-flex gap-3 mt-4">
+
+                            <button
+                                className="btn btn-custom-primary btn-lg px-4"
+                                onClick={handlePrimaryButton}
+                            >
+                                {admin ? "Go to Dashboard" : "Shop Now"}
+                            </button>
+
+                            {
+                                !admin &&
+                                <button
+                                    className="btn btn-custom-outline btn-lg px-4"
+                                    onClick={() => navigate("/about")}
+                                >
+                                    Learn More
+                                </button>
+                            }
+
+                        </div>
+
                     </div>
 
                     <div className="col-lg-6 text-center">
-                        <img src="https://bootstrapmade.com/content/demo/eStore/assets/img/product/product-f-9.webp" alt="Stylish fashion model" className="img-fluid" />
+
+                        <img
+                            src="https://bootstrapmade.com/content/demo/eStore/assets/img/product/product-f-9.webp"
+                            alt="Shopping"
+                            className="hero-image img-fluid"
+                        />
+
                     </div>
 
                 </div>
-            </div>
-        </>
-    )
-}
 
-export default Home
+            </div>
+
+        </section>
+
+    );
+
+};
+
+export default Home;

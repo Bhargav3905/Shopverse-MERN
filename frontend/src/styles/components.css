@@ -1,6 +1,4 @@
-/* ===========================================================
-   BUTTONS
-=========================================================== */
+/* BUTTONS*/
 
 .btn {
     border-radius: var(--radius-md);
@@ -45,71 +43,67 @@
     color: white;
 }
 
-/* ===========================================================
-   NAVBAR
-=========================================================== */
+/* NAVBAR*/
 
 .custom-navbar {
-    background: rgba(255,255,255,.92);
-    -webkit-backdrop-filter: blur(12px);
-    backdrop-filter: blur(12px);
-    border-radius: var(--radius-lg);
-    margin-top: 20px;
-    padding: 14px 22px;
-    box-shadow: var(--shadow-sm);
+    background: rgba(255, 255, 255, .94);
+    -webkit-backdrop-filter: blur(16px);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, .55);
+    box-shadow: 0 12px 30px rgba(15, 23, 42, .08);
+    border-radius: 22px;
+    padding: 14px 26px;
     transition: var(--transition);
 }
 
 .brand-logo {
-    font-family: var(--heading-font);
-    font-size: 1.8rem;
+    font-size: 2rem;
+    font-weight: 700;
     color: var(--primary) !important;
+    letter-spacing: -1px;
 }
 
-.nav-link-custom {
-    color: var(--text) !important;
+.nav-custom-link {
+    color: var(--text);
     font-weight: 500;
-    position: relative;
     transition: var(--transition);
+    position: relative;
 }
 
-.nav-link-custom:hover {
+.nav-custom-link:hover {
+    color: var(--primary);
+}
+
+.active-link {
     color: var(--primary) !important;
 }
 
-.nav-link-custom::after {
+.active-link::after {
     content: "";
     position: absolute;
-    left: 8px;
-    bottom: 0;
-    width: 0;
+    bottom: -6px;
+    left: 0;
+    width: 100%;
     height: 2px;
     background: var(--primary);
-    transition: .3s;
+    border-radius: 20px;
 }
 
-.nav-link-custom:hover::after {
-    width: calc(100% - 16px);
-}
-
-.nav-actions {
-    gap: 16px;
-}
-
-.nav-icon {
-    width: 28px;
-    height: 28px;
+.nav-actions img {
     transition: var(--transition);
-    cursor: pointer;
 }
 
-.nav-icon:hover {
-    transform: scale(1.15);
+.nav-actions img:hover {
+    transform: translateY(-2px) scale(1.08);
 }
 
-/* ===========================================================
-   CARDS
-=========================================================== */
+.sticky-top {
+    z-index: 1050;
+    background: transparent;
+    padding-top: 18px;
+}
+
+/* CARDS */
 
 .card {
     border: none;
@@ -153,7 +147,7 @@
 
     border-color: var(--primary);
 
-    box-shadow: 0 0 0 .2rem rgba(15,118,110,.15);
+    box-shadow: 0 0 0 .2rem rgba(15, 118, 110, .15);
 }
 
 /* ===========================================================
@@ -194,30 +188,150 @@
    FOOTER
 =========================================================== */
 
-footer {
+.footer {
 
-    background: #0f172a !important;
+    margin-top: 80px;
+
+    background: #0F172A;
+
+    color: white;
+
+    padding: 70px 0 25px;
+
+}
+
+.footer-logo {
 
     color: white;
 
-    margin-top: 90px;
+    margin-bottom: 18px;
+
 }
 
-footer h4,
-footer h5 {
+.footer-title {
 
     color: white;
+
+    margin-bottom: 18px;
+
 }
 
-footer p,
-footer a {
+.footer-text {
 
-    color: #CBD5E1 !important;
+    color: #CBD5E1;
+
+    line-height: 1.8;
+
 }
 
-footer a:hover {
+.footer-links {
 
-    color: white !important;
+    list-style: none;
+
+    padding: 0;
+
+    margin: 0;
+
+}
+
+.footer-links li {
+
+    margin-bottom: 12px;
+
+}
+
+.footer-links a {
+
+    color: #CBD5E1;
+
+    transition: .3s;
+
+}
+
+.footer-links a:hover {
+
+    color: white;
+
+    padding-left: 6px;
+
+}
+
+.footer-divider {
+
+    margin: 45px 0 25px;
+
+    background: #334155;
+
+}
+
+.footer-copy {
+
+    color: #94A3B8;
+
+    font-size: .95rem;
+
+}
+
+/* ===========================================================
+   HERO SECTION
+=========================================================== */
+
+.hero-section{
+
+    padding:80px 0 90px;
+
+}
+
+.hero-badge{
+
+    display:inline-block;
+
+    background:rgba(15,118,110,.08);
+
+    color:var(--primary);
+
+    padding:10px 18px;
+
+    border-radius:999px;
+
+    font-weight:600;
+
+    margin-bottom:24px;
+
+}
+
+.hero-title{
+
+    font-size:3.4rem;
+
+    line-height:1.1;
+
+    margin-bottom:22px;
+
+    max-width:620px;
+
+}
+
+.hero-description{
+
+    font-size:1.08rem;
+
+    color:var(--text);
+
+    max-width:560px;
+
+    line-height:1.9;
+
+}
+
+.hero-image{
+
+    max-height:560px;
+
+    object-fit:contain;
+
+    animation:floatImage 5s ease-in-out infinite;
+
 }
 
 /* ===========================================================

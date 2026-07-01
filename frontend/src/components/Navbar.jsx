@@ -26,81 +26,86 @@ const Navbar = () => {
     }
 
     return (
-        <div className="container">
-            <nav className="navbar navbar-expand-lg custom-navbar">
-                <div className="container-fluid">
-                    <Link className="navbar-brand fw-bold brand-logo" to="/">
-                        ShopVerse
-                    </Link>
+        <div className="sticky-top pt-3">
+            <div className="container">
 
-                    <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-                        <span className="navbar-toggler-icon"></span>
-                    </button>
+                <nav className="navbar navbar-expand-lg custom-navbar">
 
-                    <div className="collapse navbar-collapse align-items-center" id="navbarNavDropdown">
+                    <div className="container-fluid">
 
-                        <ul className="navbar-nav me-auto align-items-lg-center gap-lg-2">
+                        <Link className="navbar-brand brand-logo" to="/">
+                            ShopVerse
+                        </Link>
 
-                            <li className="nav-item">
-                                <Link className="nav-link nav-link-custom" to="/">Home</Link>
-                            </li>
+                        <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                            <span className="navbar-toggler-icon"></span>
+                        </button>
 
-                            {
-                                admin ?
-                                    <>
-                                        <li className="nav-item">
-                                            <Link className="nav-link nav-link-custom" to="/admin-dashboard">Dashboard</Link>
-                                        </li>
-                                        <li className="nav-item">
-                                            <Link className="nav-link nav-link-custom" to="/manage-products">Manage Products</Link>
-                                        </li>
-                                        <li className="nav-item">
-                                            <Link className="nav-link nav-link-custom" to="/manage-categories">Manage Categories</Link>
-                                        </li>
-                                    </>
+                        <div className="collapse navbar-collapse align-items-center" id="navbarNavDropdown">
+
+                            <ul className="navbar-nav mx-auto align-items-lg-center gap-lg-3">
+
+                                <li className="nav-item">
+                                    <Link className={`nav-link nav-custom-link ${location.pathname === "/" ? "active-link" : ""}`} to="/">Home</Link>
+                                </li>
+
+                                {
+                                    admin ?
+                                        <>
+                                            <li className="nav-item">
+                                                <Link className={`nav-link nav-custom-link ${location.pathname === "/admin-dashboard" ? "active-link" : ""}`} to="/admin-dashboard">Dashboard</Link>
+                                            </li>
+                                            <li className="nav-item">
+                                                <Link className={`nav-link nav-custom-link ${location.pathname === "/manage-products" ? "active-link" : ""}`} to="/manage-products">Manage Products</Link>
+                                            </li>
+                                            <li className="nav-item">
+                                                <Link className={`nav-link nav-custom-link ${location.pathname === "/manage-categories" ? "active-link" : ""}`} to="/manage-categories">Manage Categories</Link>
+                                            </li>
+                                        </>
+                                        :
+                                        <>
+                                            <li className="nav-item">
+                                                <Link className={`nav-link nav-custom-link ${location.pathname === "/shop" ? "active-link" : ""}`} to="/shop">Shop</Link>
+                                            </li>
+                                            <li className="nav-item">
+                                                <Link className={`nav-link nav-custom-link ${location.pathname === "/about" ? "active-link" : ""}`} to="/about">About Us</Link>
+                                            </li>
+                                            <li className="nav-item">
+                                                <Link className={`nav-link nav-custom-link ${location.pathname === "/contact" ? "active-link" : ""}`} to="/contact">Contact Us</Link>
+                                            </li>
+                                        </>
+                                }
+
+                            </ul>
+
+                            <div className="d-flex align-items-center gap-3 nav-actions">
+
+                                {
+                                    loggedIn && !isProductDetail && !admin &&
+                                    <Link to="/add-to-cart">
+                                        <img src="/addToCart.svg" alt="cart" className="nav-icon" />
+                                    </Link>
+                                }
+                                {
+                                    loggedIn && !isProductDetail &&
+                                    <Link to={'/profile'}>
+                                        <img src="/profile.svg" alt="profile" className="nav-icon" />
+                                    </Link>
+                                }
+
+                                {loggedIn ? <button className="btn btn-outline-danger rounded-pill px-4" onClick={handleLogout}>Logout</button>
                                     :
                                     <>
-                                        <li className="nav-item">
-                                            <Link className="nav-link nav-link-custom" to="/shop">Shop</Link>
-                                        </li>
-                                        <li className="nav-item">
-                                            <Link className="nav-link nav-link-custom" to="/about">About Us</Link>
-                                        </li>
-                                        <li className="nav-item">
-                                            <Link className="nav-link nav-link-custom" to="/contact">Contact Us</Link>
-                                        </li>
+                                        <button className="btn btn-outline-primary rounded-pill px-4" onClick={handleSignUp}>Sign Up</button>
+                                        <button className="btn btn-primary-custom rounded-pill px-4" onClick={handleSignIn}>Sign In</button>
                                     </>
-                            }
+                                }
+                            </div>
 
-                        </ul>
-
-                        <div className="d-flex align-items-center gap-3 nav-actions">
-
-                            {
-                                loggedIn && !isProductDetail && !admin &&
-                                <Link to="/add-to-cart">
-                                    <img src="/addToCart.svg" alt="cart" className="nav-icon" />
-                                </Link>
-                            }
-                            {
-                                loggedIn && !isProductDetail &&
-                                <Link to={'/profile'}>
-                                    <img src="/profile.svg" alt="profile" className="nav-icon" />
-                                </Link>
-                            }
-
-                            {loggedIn ? <button className="btn btn-custom-danger" onClick={handleLogout}>Logout</button>
-                                :
-                                <>
-                                    <button className="btn btn-custom-outline" onClick={handleSignUp}>Sign Up</button>
-                                    <button className="btn btn-custom-primary" onClick={handleSignIn}>Sign In</button>
-                                </>
-                            }
                         </div>
-
                     </div>
-                </div>
-            </nav>
+                </nav>
+            </div>
         </div>
     )
 }
