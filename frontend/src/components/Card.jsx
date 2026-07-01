@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 import { isAdmin } from "../utils/auth";
-import { IMAGE_URL } from '../utils/helper' 
+import { IMAGE_URL } from '../utils/helper'
 
 const Card = ({ item, handleAddToCart }) => {
 
@@ -12,18 +12,35 @@ const Card = ({ item, handleAddToCart }) => {
     }
 
     return (
-        <div className="card" style={{ width: "18rem" }}>
-            <img src={`${IMAGE_URL}${item.image}`} className="card-img-top" alt="..." />
-            <div className="card-body">
+        <div className="card h-100 shadow-sm border-0 rounded-4 overflow-hidden">
+
+            <img src={`${IMAGE_URL}${item.image}`} className="card-img-top" alt={item.productName}
+                style={{ height: "220px", objectFit: "cover", transition: "0.35s" }} />
+
+            <div className="card-body d-flex flex-column">
+
                 <h5 className="card-title">{item.productName}</h5>
-                <p className="card-text">{item.description}</p>
-                <p>₹ {item.price}</p>
-                {
-                    !admin &&
-                    <button className='btn btn-primary m-2' onClick={() => handleAddToCart(item._id)}>Add to Cart</button>
-                }
-                <button className='btn btn-warning' onClick={() => handleProductDetail(item)}>View</button>
+
+                <p className="card-text text-muted flex-grow-1" style={{ minHeight: "55px" }}>
+                    {item.description.length > 70 ? item.description.substring(0, 70) + "..." : item.description}
+                </p>
+
+                <h5 className="fw-bold text-success mb-3">₹ {item.price}</h5>
+
+                <div className="d-flex gap-2 mt-auto">
+                    {!admin && (
+                        <button className="btn btn-custom-primary flex-fill" onClick={() => handleAddToCart(item._id)}>
+                            Add to Cart
+                        </button>
+                    )}
+
+                    <button className="btn btn-warning px-4" onClick={() => handleProductDetail(item)}>
+                        View
+                    </button>
+                </div>
+
             </div>
+
         </div>
     )
 }

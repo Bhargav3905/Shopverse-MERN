@@ -9,7 +9,6 @@ const Navbar = () => {
     const loggedIn = isLoggedIn();
 
     const location = useLocation();
-    const isProductDetail = location.pathname.startsWith("/shop/");
 
     const handleSignUp = () => {
         navigate("/register")
@@ -81,13 +80,13 @@ const Navbar = () => {
                             <div className="d-flex align-items-center gap-3 nav-actions">
 
                                 {
-                                    loggedIn && !isProductDetail && !admin &&
+                                    loggedIn && !admin &&
                                     <Link to="/add-to-cart">
                                         <img src="/addToCart.svg" alt="cart" className="nav-icon" />
                                     </Link>
                                 }
                                 {
-                                    loggedIn && !isProductDetail &&
+                                    loggedIn &&
                                     <Link to={'/profile'}>
                                         <img src="/profile.svg" alt="profile" className="nav-icon" />
                                     </Link>

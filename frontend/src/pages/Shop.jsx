@@ -73,17 +73,20 @@ const Shop = () => {
         <>
             <br />
 
-            <div className="container mb-4">
-                <input type="text" className="form-control" placeholder="🔍 Search products..." value={search} onChange={(e) => searchProducts(e.target.value)} />
+            <div className="container mb-5">
+                <input type="text" value={search}
+                    style={{ maxWidth: "550px", margin: "0 auto", borderRadius: "14px" }} className="form-control shadow-sm"
+                    placeholder="🔍 Search products..." onChange={(e) => searchProducts(e.target.value)} />
             </div>
 
             {/* Category Filter */}
             <div className="container mt-4">
 
-                <h2 className="mb-3">Shop by Category</h2>
+                <h2 className="section-title">Shop by Category</h2>
 
-                <div className="d-flex flex-wrap gap-3">
-                    <button className={`btn ${selectedCategory === "all" ? "btn-dark" : "btn-outline-dark"}`}
+                <div className="d-flex flex-wrap gap-2 mb-5">
+
+                    <button className={`btn ${selectedCategory === "all" ? "btn-custom-primary" : "btn-custom-outline"}`}
                         onClick={() => {
                             setSelectedCategory("all");
                             if (search.trim()) {
@@ -94,9 +97,10 @@ const Shop = () => {
                         }} >
                         All Products
                     </button>
+
                     {
                         categories.map((category) => (
-                            <button key={category._id} className={`btn ${selectedCategory === category._id ? "btn-success" : "btn-outline-success"}`}
+                            <button key={category._id} className={`btn ${selectedCategory === category._id ? "btn-custom-primary" : "btn-custom-outline"}`}
                                 onClick={() => {
                                     setSelectedCategory(category._id);
                                     fetchProducts(category._id);
@@ -105,31 +109,42 @@ const Shop = () => {
                             </button>
                         ))
                     }
-                </div>
-            </div>
 
-            <br />
-            <br />
+                </div>
+
+            </div>
 
             {/* Products */}
             {
                 products.length === 0 ?
                     <div className="text-center mt-5">
-                        <h2>No Products Found</h2>
+                        <h2 className="fw-bold">
+                            No Products Found
+                        </h2>
+
+                        <p className="text-muted">
+                            Try another search or category.
+                        </p>
                     </div>
 
                     :
-                    <div className="d-flex container flex-wrap justify-content-between">
-                        {
-                            products.filter((product) => {
-                                if (selectedCategory === "all") return true;
-                                return product.category?._id === selectedCategory;
-                            }).map((item) => (
-                                <div key={item._id}>
-                                    <Card item={item} handleAddToCart={handleAddToCart} />
-                                </div>
-                            ))
-                        }
+                    <div className="container">
+
+                        <div className="row g-4">
+                            {
+                                products
+                                    .filter((product) => {
+                                        if (selectedCategory === "all") return true;
+                                        return product.category?._id === selectedCategory;
+                                    })
+                                    .map((item) => (
+                                        <div key={item._id} className="col-xl-3 col-lg-4 col-md-6 col-sm-12" >
+                                            <Card item={item} handleAddToCart={handleAddToCart} />
+                                        </div>
+                                    ))
+                            }
+                        </div>
+
                     </div>
             }
         </>

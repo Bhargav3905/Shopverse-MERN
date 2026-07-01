@@ -65,56 +65,86 @@ const AddToCart = () => {
 
     return (
         <>
-            <div className="container mt-5">
-                <div className="col-12 d-flex gap-3">
+            <div className="container py-5">
+                <div className="row g-4">
 
-                    <div className="col-8"
-                        style={{ border: "2px solid black", padding: "25px", borderRadius: "40px" }}>
+                    <div className="col-lg-8">
+                        <div className="card shadow-sm border-0 p-4 h-100">
 
-                        <div className="d-flex justify-content-between align-items-center">
-                            <h1>Add To Cart</h1>
-                            {cartItem.length > 0 && <button className='btn btn-danger' onClick={() => handleClearCart()}>Remove All</button>}
-                        </div>
-                        {
-                            cartItem.length === 0 ?
-                                <div className="text-center mt-5">
-                                    <h2>Your Cart is Empty</h2>
-                                </div>
-                                :
-                                cartItem
-                                    .filter(item => item.product)
-                                    .map((item) => {
-                                        return (
-                                            <div key={item._id} className='mt-5 d-flex gap-3 align-items-center'>
-                                                <div>
-                                                    <img style={{ border: "1px solid black" }} src={`http://localhost:3000/uploads/${item.product.image}`} alt="" width={300} height={300} />
-                                                </div>
-                                                <div>
-                                                    <p>Category: {item.product.category.categoryName}</p>
-                                                    <p>Product Name: {item.product.productName}</p>
-                                                    <p>Product Description: {item.product.description}</p>
-                                                    <p>Product Price: ₹{item.product.price}</p>
-                                                    <div className='d-flex gap-3 align-items-baseline'>
-                                                        Quantity :
-                                                        <button onClick={() => updateQuantity(item.product._id, item.quantity - 1)}>-</button>
-                                                        <p>{item.quantity}</p>
-                                                        <button onClick={() => updateQuantity(item.product._id, item.quantity + 1)}>+</button>
+                            <div className="d-flex justify-content-between align-items-center">
+
+                                <h2 className="fw-bold mb-0"> Shopping Cart </h2>
+
+                                {cartItem.length > 0 && <button className="btn btn-outline-danger rounded-pill px-4" onClick={() => handleClearCart()}>Remove All</button>}
+
+                            </div>
+
+                            {
+                                cartItem.length === 0 ?
+                                    <div className="text-center mt-5">
+                                        <h2>Your Cart is Empty</h2>
+                                    </div>
+                                    :
+                                    cartItem
+                                        .filter(item => item.product)
+                                        .map((item) => {
+                                            return (
+                                                <div key={item._id} className="row g-4 align-items-center border-bottom pb-4 mb-4">
+
+                                                    <div className="col-md-4 text-center">
+                                                        <img src={`http://localhost:3000/uploads/${item.product.image}`} alt={item.product.productName}
+                                                            className="img-fluid rounded-4 border" style={{ maxHeight: "250px", objectFit: "cover" }} />
                                                     </div>
-                                                    <button onClick={() => removeItem(item._id)}><img src="/delete.svg" alt="delete" /></button>
+
+                                                    <div className="col-md-8">
+                                                        <h4 className="fw-bold mb-3">{item.product.productName}</h4>
+
+                                                        <p className="text-muted mb-2">{item.product.description}</p>
+
+                                                        <p className="mb-2"><strong>Category:</strong> {item.product.category.categoryName}</p>
+
+                                                        <h5 className="fw-bold text-success">₹{item.product.price}</h5>
+
+                                                        <div className="d-flex align-items-center gap-3 mt-4">
+                                                            Quantity :
+                                                            <button className="btn btn-outline-secondary btn-sm rounded-circle" onClick={() => updateQuantity(item.product._id, item.quantity - 1)}>-</button>
+                                                            <p className="fw-bold mb-0 px-2">{item.quantity}</p>
+                                                            <button className="btn btn-outline-secondary btn-sm rounded-circle" onClick={() => updateQuantity(item.product._id, item.quantity + 1)}>+</button>
+                                                        </div>
+
+                                                        <button className="btn btn-outline-danger btn-sm mt-3 d-flex align-items-center gap-2" onClick={() => removeItem(item._id)}>
+                                                            <img src="/delete.svg" alt="delete" width="18" height="18" />
+                                                            Remove
+                                                        </button>
+                                                    </div>
+
                                                 </div>
-                                            </div>
-                                        )
-                                    })
-                        }
+                                            )
+                                        })
+                            }
+                        </div>
                     </div>
 
+
                     {cartItem.length > 0 &&
-                        <div className="col-4" style={{ border: "2px solid black", padding: "25px", borderRadius: "40px" }}>
-                            <h1>Summary</h1>
-                            <h4>Items : {cartItem.length}</h4>
-                            <h3>Total : ₹{cartItem.reduce((acc, item) => acc + Number(item.product.price) * item.quantity, 0)}</h3>
-                            
-                            <PaymentButton amount={totalAmount} fetchAddToCart={fetchAddToCart} />
+                        <div className="col-lg-4">
+                            <div className="card shadow-sm border-0 p-4 sticky-top" style={{ top: "120px" }}>
+                                <h2 className="fw-bold mb-4">Order Summary</h2>
+
+                                <div className="d-flex justify-content-between mb-3">
+                                    <span>Items</span>
+                                    <strong>{cartItem.length}</strong>
+                                </div>
+
+                                <div className="d-flex justify-content-between mb-4">
+                                    <span>Total</span>
+                                    <strong className="fs-4 text-success">
+                                        ₹{totalAmount}
+                                    </strong>
+                                </div>
+
+                                <PaymentButton amount={totalAmount} fetchAddToCart={fetchAddToCart} />
+                            </div>
                         </div>
                     }
 
