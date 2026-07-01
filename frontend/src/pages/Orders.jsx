@@ -37,12 +37,14 @@ const Orders = () => {
             {
                 paymentSuccess && (
                     <div className="alert alert-success rounded-4 p-4 mb-4">
-                        <h3>🎉 Order Placed Successfully!</h3>
-                        <br />
+                        <h2 className="fw-bold">
+                            🎉 Order Placed Successfully!
+                        </h2>
+
                         <h4 className="mb-1">Thank you for shopping with ShopVerse.</h4>
                         <h4>Your payment has been received successfully.</h4>
-                        <br />
-                        <button className="btn btn-success mt-2" onClick={() => navigate("/shop")}>
+
+                        <button className="btn btn-custom-primary rounded-pill px-4" onClick={() => navigate("/shop")}>
                             Continue Shopping
                         </button>
                     </div>
@@ -51,42 +53,98 @@ const Orders = () => {
 
             <br />
             <br />
-            <br />
 
-            <h2 className="mb-4">My Orders</h2>
+            <>
+                <h2 className="fw-bold section-title mb-2">
+                    My Orders
+                </h2>
+
+                <p className="text-muted mb-5">
+                    View your purchase history and payment details.
+                </p>
+            </>
+
             {
                 orders.length === 0
                     ?
-                    <div className="text-center">
-                        <h3>No Orders Yet</h3>
+                    <div className="text-center py-5">
+
+                        <h2 className="fw-bold">
+                            No Orders Yet
+                        </h2>
+
+                        <p className="text-muted">
+                            Your purchased products will appear here.
+                        </p>
+
+                        <button
+                            className="btn btn-custom-primary rounded-pill px-4"
+                            onClick={() => navigate("/shop")}
+                        >
+                            Start Shopping
+                        </button>
+
                     </div>
                     :
                     orders.map((order) => (
                         <div key={order._id} className="card mb-4 shadow-sm">
 
                             <div className="card-body">
-                                <h5>Order ID : {" "} {order._id}</h5>
-                                <p>Order Date : {" "} {new Date(order.createdAt).toLocaleDateString()}</p>
-                                <p>Payment : {" "} {order.paymentMethod}</p>
-                                <p>Status : {" "} {order.paymentStatus}</p>
+                                <div className="d-flex justify-content-between align-items-start flex-wrap">
+
+                                    <div>
+                                        <h5 className="fw-bold mb-3">
+                                            Order #{order._id.slice(-8).toUpperCase()}
+                                        </h5>
+
+                                        <p className="mb-2">
+                                            <strong>Date:</strong>{" "}
+                                            {new Date(order.createdAt).toLocaleDateString()}
+                                        </p>
+
+                                        <p className="mb-2">
+                                            <strong>Payment:</strong> {order.paymentMethod}
+                                        </p>
+                                    </div>
+
+                                    <span className="badge bg-success fs-6 px-3 py-2">
+                                        {order.paymentStatus}
+                                    </span>
+
+                                </div>
 
                                 <hr />
                                 {
                                     order.products.map((item) => (
-                                        <div key={item._id} className="d-flex justify-content-between mb-2">
+                                        <div className="d-flex justify-content-between align-items-center py-2">
                                             <div>
-                                                <strong>{item.product.productName}</strong>
-                                                <br />
-                                                Qty : {" "} {item.quantity}
+                                                <h6 className="fw-bold mb-1">
+                                                    {item.product.productName}
+                                                </h6>
+                                                <small className="text-muted">
+                                                    Quantity : {item.quantity}
+                                                </small>
                                             </div>
 
-                                            <div>₹{item.price}</div>
+                                            <div className="fw-bold text-success">
+                                                ₹{item.price}
+                                            </div>
                                         </div>
                                     ))
                                 }
 
                                 <hr />
-                                <h4>Total : {" "} ₹{order.totalAmount}</h4>
+
+                                <div className="d-flex justify-content-between align-items-center">
+
+                                    <h4 className="mb-0 fw-bold">
+                                        Total
+                                    </h4>
+                                    <h3 className="mb-0 text-success fw-bold">
+                                        ₹{order.totalAmount}
+                                    </h3>
+
+                                </div>
                             </div>
 
                         </div>

@@ -30,43 +30,168 @@ const Profile = () => {
     };
 
     return (
-        <div className="container mt-5">
+        <div className="container py-5">
 
-            <h2>User Profile</h2>
-            <hr />
+            <div className="row justify-content-center">
 
-            <h5>Name : {localStorage.getItem("fullName")}</h5>
-            <h5>Email : {localStorage.getItem("email")}</h5>
-            <h5>Role : {localStorage.getItem("role")}</h5>
-            <hr />
+                <div className="col-lg-8">
 
-            {
-                !admin &&
-                <Link to="/orders" className="btn btn-primary mt-4">
-                    My Orders
-                </Link>
-            }
+                    <div className="card border-0 shadow-sm rounded-4 p-5">
 
-            <br />
-            <br />
-            <hr />
+                        <div className="text-center mb-5">
 
-            <h3>Change Password</h3>
+                            <div className="d-inline-flex align-items-center justify-content-center rounded-circle shadow-sm mb-4"
+                                style={{ width: "110px", height: "110px", background: "#F8FAFC", border: "2px solid #E2E8F0" }} >
+                                <img
+                                    src="/profile.svg"
+                                    alt="profile"
+                                    width={58}
+                                    height={58}
+                                />
+                            </div>
 
-            <form onSubmit={handleChangePassword}>
-                <input type="password" className="form-control mb-3" placeholder="Current Password" value={formData.currentPassword}
-                    onChange={(e) => setFormData({ ...formData, currentPassword: e.target.value })} />
+                            <h2 className="fw-bold">
+                                My Profile
+                            </h2>
 
-                <input type="password" className="form-control mb-3" placeholder="New Password" value={formData.newPassword}
-                    onChange={(e) => setFormData({ ...formData, newPassword: e.target.value })} />
+                            <p className="text-muted mb-0">
+                                View your information and manage your account settings.
+                            </p>
 
-                <input type="password" className="form-control mb-3" placeholder="Confirm Password" value={formData.confirmPassword}
-                    onChange={(e) => setFormData({ ...formData, confirmPassword: e.target.value })} />
+                        </div>
 
-                <button className="btn btn-primary" >
-                    Update Password
-                </button>
-            </form>
+                        <div className="row g-4">
+
+                            <div className="col-md-6">
+                                <label className="text-muted">
+                                    Full Name
+                                </label>
+
+                                <div className="form-control bg-light">
+                                    {localStorage.getItem("fullName")}
+                                </div>
+                            </div>
+
+                            <div className="col-md-6">
+                                <label className="text-muted">
+                                    Email
+                                </label>
+
+                                <div className="form-control bg-light">
+                                    {localStorage.getItem("email")}
+                                </div>
+                            </div>
+
+                            <div className="col-md-6">
+                                <label className="text-muted">
+                                    Role
+                                </label>
+
+                                <div className="form-control bg-light text-capitalize">
+                                    {localStorage.getItem("role")}
+                                </div>
+                            </div>
+
+                        </div>
+
+                        {
+                            !admin &&
+                            <div className="mt-4">
+
+                                <Link
+                                    to="/orders"
+                                    className="btn btn-custom-primary rounded-pill px-4"
+                                >
+                                    My Orders
+                                </Link>
+
+                            </div>
+                        }
+
+                        <hr className="my-5" />
+
+                        <h3 className="fw-bold mb-4">
+                            Change Password
+                        </h3>
+
+                        <form onSubmit={handleChangePassword}>
+
+                            <div className="mb-3">
+
+                                <label>
+                                    Current Password
+                                </label>
+
+                                <input
+                                    type="password"
+                                    className="form-control"
+                                    placeholder="Enter current password"
+                                    value={formData.currentPassword}
+                                    onChange={(e) =>
+                                        setFormData({
+                                            ...formData,
+                                            currentPassword: e.target.value
+                                        })
+                                    }
+                                />
+
+                            </div>
+
+                            <div className="mb-3">
+
+                                <label>
+                                    New Password
+                                </label>
+
+                                <input
+                                    type="password"
+                                    className="form-control"
+                                    placeholder="Enter new password"
+                                    value={formData.newPassword}
+                                    onChange={(e) =>
+                                        setFormData({
+                                            ...formData,
+                                            newPassword: e.target.value
+                                        })
+                                    }
+                                />
+
+                            </div>
+
+                            <div className="mb-4">
+
+                                <label>
+                                    Confirm Password
+                                </label>
+
+                                <input
+                                    type="password"
+                                    className="form-control"
+                                    placeholder="Confirm new password"
+                                    value={formData.confirmPassword}
+                                    onChange={(e) =>
+                                        setFormData({
+                                            ...formData,
+                                            confirmPassword: e.target.value
+                                        })
+                                    }
+                                />
+
+                            </div>
+
+                            <button
+                                className="btn btn-custom-primary rounded-pill px-4"
+                            >
+                                Update Password
+                            </button>
+
+                        </form>
+
+                    </div>
+
+                </div>
+
+            </div>
 
         </div>
     );
