@@ -4,6 +4,7 @@ import axiosInstance from '../services/axiosInstance.js'
 
 const Shop = () => {
 
+    const [hoveredCategory, setHoveredCategory] = useState(null);
     const [products, setProducts] = useState([]);
     const [search, setSearch] = useState("");
     const [categories, setCategories] = useState([]);
@@ -80,39 +81,114 @@ const Shop = () => {
             </div>
 
             {/* Category Filter */}
-            <div className="container mt-4">
 
-                <h2 className="section-title">Shop by Category</h2>
+            <div className="container mt-5">
 
-                <div className="d-flex flex-wrap gap-2 mb-5">
+                <div className="d-flex justify-content-between align-items-center mb-4">
 
-                    <button className={`btn ${selectedCategory === "all" ? "btn-custom-primary" : "btn-custom-outline"}`}
+                    <h2 className="section-title mb-0">
+                        Shop by Category
+                    </h2>
+
+                    <button
+                        className={`btn ${selectedCategory === "all"
+                            ? "btn-custom-primary"
+                            : "btn-custom-outline"}`}
                         onClick={() => {
                             setSelectedCategory("all");
+
                             if (search.trim()) {
                                 searchProducts(search);
                             } else {
-                                fetchProducts()
+                                fetchProducts();
                             }
-                        }} >
+                        }}
+                    >
                         All Products
                     </button>
 
+                </div>
+
+                <div className="row g-4">
+
                     {
                         categories.map((category) => (
-                            <button key={category._id} className={`btn ${selectedCategory === category._id ? "btn-custom-primary" : "btn-custom-outline"}`}
-                                onClick={() => {
-                                    setSelectedCategory(category._id);
-                                    fetchProducts(category._id);
-                                }}>
-                                {category.categoryName}
-                            </button>
+
+                            <div
+                                key={category._id}
+                                className="col-xl-2 col-lg-3 col-md-4 col-6"
+                            >
+
+                                <div
+                                    className={`card shadow-sm h-100 ${selectedCategory === category._id
+                                        ? "border border-4 border-success"
+                                        : "border border-2"
+                                        }`}
+
+                                    style={{
+                                        cursor: "pointer",
+                                        borderRadius: "18px",
+                                        overflow: "hidden",
+                                        transition: "all 0.25s ease",
+                                        transform:
+                                            selectedCategory === category._id || hoveredCategory === category._id
+                                                ? "scale(1.03)"
+                                                : "scale(1)",
+                                        borderColor:
+                                            selectedCategory === category._id || hoveredCategory === category._id
+                                                ? "#198754"
+                                                : "#dee2e6",
+                                        borderWidth:
+                                            selectedCategory === category._id || hoveredCategory === category._id
+                                                ? "3px"
+                                                : "1px",
+                                        borderStyle: "solid",
+                                        boxShadow:
+                                            selectedCategory === category._id
+                                                ? "0 0 0 4px rgba(25,135,84,0.18)"
+                                                : hoveredCategory === category._id
+                                                    ? "0 8px 20px rgba(0,0,0,0.15)"
+                                                    : "0 4px 12px rgba(0,0,0,0.08)"
+                                    }}
+
+                                    onClick={() => {
+                                        setSelectedCategory(category._id);
+                                        fetchProducts(category._id);
+                                    }}
+
+                                    onMouseEnter={() => setHoveredCategory(category._id)}
+                                    onMouseLeave={() => setHoveredCategory(null)}
+                                >
+
+                                    <img
+                                        src={`http://localhost:3000/uploads/${category.image}`}
+                                        alt={category.categoryName}
+                                        className="card-img-top"
+                                        style={{
+                                            height: "140px",
+                                            objectFit: "cover"
+                                        }}
+                                    />
+
+                                    <div className="card-body text-center">
+                                        <h6 className="fw-bold mb-0">
+                                            {category.categoryName}
+                                        </h6>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
                         ))
                     }
 
                 </div>
 
             </div>
+
+            <br />
+            <br />
 
             {/* Products */}
             {

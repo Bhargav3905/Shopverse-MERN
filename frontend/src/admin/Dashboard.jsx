@@ -28,7 +28,7 @@ const Dashboard = () => {
                     Admin Dashboard
                 </h1>
 
-                <p className="text-muted">
+                <p className="text-muted fs-5">
                     Monitor products, categories, users, orders and revenue.
                 </p>
 
@@ -36,93 +36,208 @@ const Dashboard = () => {
 
             <div className="row g-4">
 
-                <div className="col-lg-4 col-md-6">
-                    <div className="card border-0 shadow-sm h-100">
+                {/* Products */}
 
+                <div className="col-lg-4 col-md-6">
+                    <div
+                        className="card shadow bg-success-subtle border-success-subtle"
+                        style={{
+                            borderRadius: "24px",
+                            transition: "0.25s",
+                            cursor: "pointer"
+                        }}
+                        onMouseEnter={(e) => {
+                            e.currentTarget.style.transform = "translateY(-6px)";
+                            e.currentTarget.style.boxShadow = "0 18px 35px rgba(0,0,0,0.18)";
+                        }}
+                        onMouseLeave={(e) => {
+                            e.currentTarget.style.transform = "translateY(0)";
+                            e.currentTarget.style.boxShadow = "";
+                        }}
+                    >
                         <div className="card-body text-center py-5">
 
-                            <h5 className="text-muted mb-3">
+                            <i className="bi bi-box-seam fs-1 text-success mb-3"></i>
+
+                            <h5
+                                className="fw-semibold text-secondary mb-3"
+                                style={{ letterSpacing: "0.5px" }}
+                            >
                                 Total Products
                             </h5>
 
-                            <h1 className="fw-bold text-success">
+                            <h1
+                                className="fw-bold mb-0"
+                                style={{ fontSize: "3.2rem" }}
+                            >
                                 {dashboard.totalProducts || 0}
                             </h1>
 
                         </div>
-
                     </div>
                 </div>
 
-                <div className="col-lg-4 col-md-6">
-                    <div className="card border-0 shadow-sm h-100">
+                {/* Categories */}
 
+                <div className="col-lg-4 col-md-6">
+                    <div
+                        className="card shadow bg-primary-subtle border-primary-subtle"
+                        style={{
+                            borderRadius: "24px",
+                            transition: "0.25s",
+                            cursor: "pointer"
+                        }}
+                        onMouseEnter={(e) => {
+                            e.currentTarget.style.transform = "translateY(-6px)";
+                            e.currentTarget.style.boxShadow = "0 18px 35px rgba(0,0,0,0.18)";
+                        }}
+                        onMouseLeave={(e) => {
+                            e.currentTarget.style.transform = "translateY(0)";
+                            e.currentTarget.style.boxShadow = "";
+                        }}
+                    >
                         <div className="card-body text-center py-5">
 
-                            <h5 className="text-muted mb-3">
+                            <i className="bi bi-grid fs-1 text-primary mb-3"></i>
+
+                            <h5
+                                className="fw-semibold text-secondary mb-3"
+                                style={{ letterSpacing: "0.5px" }}
+                            >
                                 Total Categories
                             </h5>
 
-                            <h1 className="fw-bold text-primary">
+                            <h1
+                                className="fw-bold mb-0"
+                                style={{ fontSize: "3.2rem" }}
+                            >
                                 {dashboard.totalCategories || 0}
                             </h1>
 
                         </div>
-
                     </div>
                 </div>
 
-                <div className="col-lg-4 col-md-6">
-                    <div className="card border-0 shadow-sm h-100">
+                {/* Users */}
 
+                <div className="col-lg-4 col-md-6">
+                    <div
+                        className="card shadow bg-warning-subtle border-warning-subtle"
+                        style={{
+                            borderRadius: "24px",
+                            transition: "0.25s",
+                            cursor: "pointer"
+                        }}
+                        onMouseEnter={(e) => {
+                            e.currentTarget.style.transform = "translateY(-6px)";
+                            e.currentTarget.style.boxShadow = "0 18px 35px rgba(0,0,0,0.18)";
+                        }}
+                        onMouseLeave={(e) => {
+                            e.currentTarget.style.transform = "translateY(0)";
+                            e.currentTarget.style.boxShadow = "";
+                        }}
+                    >
                         <div className="card-body text-center py-5">
 
-                            <h5 className="text-muted mb-3">
+                            <i className="bi bi-people fs-1 text-warning mb-3"></i>
+
+                            <h5
+                                className="fw-semibold text-secondary mb-3"
+                                style={{ letterSpacing: "0.5px" }}
+                            >
                                 Total Users
                             </h5>
 
-                            <h1 className="fw-bold text-warning">
+                            <h1
+                                className="fw-bold mb-0"
+                                style={{ fontSize: "3.2rem" }}
+                            >
                                 {dashboard.totalUsers || 0}
                             </h1>
 
                         </div>
-
                     </div>
                 </div>
 
-                <div className="col-lg-6">
-                    <div className="card border-0 shadow-sm h-100">
+                {/* Orders */}
 
+                <div className="col-lg-6">
+                    <div
+                        className="card shadow bg-info-subtle border-info-subtle"
+                        style={{
+                            borderRadius: "24px",
+                            transition: "0.25s",
+                            cursor: "pointer"
+                        }}
+                        onMouseEnter={(e) => {
+                            e.currentTarget.style.transform = "translateY(-6px)";
+                            e.currentTarget.style.boxShadow = "0 18px 35px rgba(0,0,0,0.18)";
+                        }}
+                        onMouseLeave={(e) => {
+                            e.currentTarget.style.transform = "translateY(0)";
+                            e.currentTarget.style.boxShadow = "";
+                        }}
+                    >
                         <div className="card-body text-center py-5">
 
-                            <h5 className="text-muted mb-3">
+                            <i className="bi bi-bag-check fs-1 text-info mb-3"></i>
+
+                            <h5
+                                className="fw-semibold text-secondary mb-3"
+                                style={{ letterSpacing: "0.5px" }}
+                            >
                                 Total Orders
                             </h5>
 
-                            <h1 className="fw-bold">
+                            <h1
+                                className="fw-bold mb-0"
+                                style={{ fontSize: "3.2rem" }}
+                            >
                                 {dashboard.totalOrders || 0}
                             </h1>
 
                         </div>
-
                     </div>
                 </div>
 
-                <div className="col-lg-6">
-                    <div className="card border-0 shadow-sm h-100">
+                {/* Revenue */}
 
+                <div className="col-lg-6">
+                    <div
+                        className="card shadow bg-danger-subtle border-danger-subtle"
+                        style={{
+                            borderRadius: "24px",
+                            transition: "0.25s",
+                            cursor: "pointer"
+                        }}
+                        onMouseEnter={(e) => {
+                            e.currentTarget.style.transform = "translateY(-6px)";
+                            e.currentTarget.style.boxShadow = "0 18px 35px rgba(0,0,0,0.18)";
+                        }}
+                        onMouseLeave={(e) => {
+                            e.currentTarget.style.transform = "translateY(0)";
+                            e.currentTarget.style.boxShadow = "";
+                        }}
+                    >
                         <div className="card-body text-center py-5">
 
-                            <h5 className="text-muted mb-3">
+                            <i className="bi bi-currency-rupee fs-1 text-danger mb-3"></i>
+
+                            <h5
+                                className="fw-semibold text-secondary mb-3"
+                                style={{ letterSpacing: "0.5px" }}
+                            >
                                 Total Revenue
                             </h5>
 
-                            <h1 className="fw-bold text-success">
+                            <h1
+                                className="fw-bold mb-0"
+                                style={{ fontSize: "3rem" }}
+                            >
                                 ₹{dashboard.totalRevenue || 0}
                             </h1>
 
                         </div>
-
                     </div>
                 </div>
 
