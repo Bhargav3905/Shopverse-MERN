@@ -1,0 +1,75 @@
+/* ===========================================================
+   LAYOUT UTILITIES
+=========================================================== */
+
+.page-section {
+    padding: 70px 0;
+}
+
+.page-title {
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--heading);
+    margin-bottom: 18px;
+}
+
+.section-subtitle {
+    color: var(--text);
+    font-size: 1.1rem;
+    max-width: 650px;
+    margin-bottom: 40px;
+}
+
+.surface {
+    background: var(--surface);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+}
+
+.rounded-xl {
+    border-radius: var(--radius-lg);
+}
+
+.shadow-soft {
+    box-shadow: var(--shadow-sm);
+}
+
+.shadow-medium {
+    box-shadow: var(--shadow-md);
+}
+
+.shadow-large {
+    box-shadow: var(--shadow-lg);
+}
+
+.border-custom {
+    border: 1px solid var(--border);
+}
+
+.bg-primary-soft {
+    background: rgba(15,118,110,.08);
+}
+
+.text-primary-custom {
+    color: var(--primary);
+}
+
+.text-muted-custom {
+    color: var(--muted);
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.object-cover {
+    object-fit: cover;
+}
+
+.object-contain {
+    object-fit: contain;
+}
+
+.transition-all {
+    transition: var(--transition);
+}

@@ -27,9 +27,9 @@ const Navbar = () => {
 
     return (
         <div className="container">
-            <nav className="navbar navbar-expand-lg">
+            <nav className="navbar navbar-expand-lg custom-navbar">
                 <div className="container-fluid">
-                    <Link className="navbar-brand fw-bold" to="/">
+                    <Link className="navbar-brand fw-bold brand-logo" to="/">
                         ShopVerse
                     </Link>
 
@@ -37,63 +37,63 @@ const Navbar = () => {
                         <span className="navbar-toggler-icon"></span>
                     </button>
 
-                    <div className="collapse navbar-collapse gap-3" id="navbarNavDropdown">
+                    <div className="collapse navbar-collapse align-items-center" id="navbarNavDropdown">
 
-                        <ul className="navbar-nav me-auto">
+                        <ul className="navbar-nav me-auto align-items-lg-center gap-lg-2">
 
                             <li className="nav-item">
-                                <Link className="nav-link active" to="/">Home</Link>
+                                <Link className="nav-link nav-link-custom" to="/">Home</Link>
                             </li>
 
                             {
                                 admin ?
                                     <>
                                         <li className="nav-item">
-                                            <Link className="nav-link" to="/admin-dashboard">Dashboard</Link>
+                                            <Link className="nav-link nav-link-custom" to="/admin-dashboard">Dashboard</Link>
                                         </li>
                                         <li className="nav-item">
-                                            <Link className="nav-link" to="/manage-products">Manage Products</Link>
+                                            <Link className="nav-link nav-link-custom" to="/manage-products">Manage Products</Link>
                                         </li>
                                         <li className="nav-item">
-                                            <Link className="nav-link" to="/manage-categories">Manage Categories</Link>
+                                            <Link className="nav-link nav-link-custom" to="/manage-categories">Manage Categories</Link>
                                         </li>
                                     </>
                                     :
                                     <>
                                         <li className="nav-item">
-                                            <Link className="nav-link" to="/shop">Shop</Link>
+                                            <Link className="nav-link nav-link-custom" to="/shop">Shop</Link>
                                         </li>
                                         <li className="nav-item">
-                                            <Link className="nav-link" to="/about">About Us</Link>
+                                            <Link className="nav-link nav-link-custom" to="/about">About Us</Link>
                                         </li>
                                         <li className="nav-item">
-                                            <Link className="nav-link" to="/contact">Contact Us</Link>
+                                            <Link className="nav-link nav-link-custom" to="/contact">Contact Us</Link>
                                         </li>
                                     </>
                             }
 
                         </ul>
 
-                        <div className="d-flex gap-2">
+                        <div className="d-flex align-items-center gap-3 nav-actions">
 
                             {
                                 loggedIn && !isProductDetail && !admin &&
                                 <Link to="/add-to-cart">
-                                    <img src="/addToCart.svg" alt="cart" style={{ width: 30, height: 35 }} />
+                                    <img src="/addToCart.svg" alt="cart" className="nav-icon" />
                                 </Link>
                             }
                             {
                                 loggedIn && !isProductDetail &&
                                 <Link to={'/profile'}>
-                                    <img src="/profile.svg" alt="profile" style={{ width: "30px", height: "35px" }} />
+                                    <img src="/profile.svg" alt="profile" className="nav-icon" />
                                 </Link>
                             }
 
-                            {loggedIn ? <button className="btn btn-danger" onClick={handleLogout}>Logout</button>
+                            {loggedIn ? <button className="btn btn-custom-danger" onClick={handleLogout}>Logout</button>
                                 :
                                 <>
-                                    <button className="btn btn-outline-success" onClick={handleSignUp}>Sign Up</button>
-                                    <button className="btn btn-success" onClick={handleSignIn}>Sign In</button>
+                                    <button className="btn btn-custom-outline" onClick={handleSignUp}>Sign Up</button>
+                                    <button className="btn btn-custom-primary" onClick={handleSignIn}>Sign In</button>
                                 </>
                             }
                         </div>

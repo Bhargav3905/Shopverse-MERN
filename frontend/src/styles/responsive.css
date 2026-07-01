@@ -1,0 +1,73 @@
+/* ==========================
+   Laptop
+========================== */
+
+@media (max-width: 1200px) {
+
+    .page-title {
+        font-size: 2.6rem;
+    }
+
+}
+
+/* ==========================
+   Tablet
+========================== */
+
+@media (max-width: 992px) {
+
+    .page-title {
+        font-size: 2.2rem;
+    }
+
+    .custom-navbar {
+        border-radius: var(--radius-md);
+    }
+
+    footer {
+        text-align: center;
+    }
+
+}
+
+/* ==========================
+   Mobile
+========================== */
+
+@media (max-width: 768px) {
+
+    .page-title {
+        font-size: 1.9rem;
+    }
+
+    section {
+        padding: 60px 0;
+    }
+
+    .auth-form .btn,
+    .cart-summary .btn {
+        width: 100%;
+    }
+
+    .nav-actions {
+        margin-top: 20px;
+        justify-content: center;
+    }
+
+}
+
+/* ==========================
+   Small Mobile
+========================== */
+
+@media (max-width: 576px) {
+
+    .page-title {
+        font-size: 1.7rem;
+    }
+
+    .brand-logo {
+        font-size: 1.5rem;
+    }
+
+}

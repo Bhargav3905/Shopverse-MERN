@@ -1,0 +1,72 @@
+/* ===========================================================
+   FADE
+=========================================================== */
+
+.fade-in {
+    animation: fadeIn .6s ease forwards;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* ===========================================================
+   SLIDE UP
+=========================================================== */
+
+.slide-up {
+    animation: slideUp .6s ease;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(25px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ===========================================================
+   HOVER LIFT
+=========================================================== */
+
+.hover-lift {
+    transition: var(--transition);
+}
+
+.hover-lift:hover {
+    transform: translateY(-6px);
+}
+
+/* ===========================================================
+   IMAGE ZOOM
+=========================================================== */
+
+.zoom-image {
+    overflow: hidden;
+}
+
+.zoom-image img {
+    transition: .45s ease;
+}
+
+.zoom-image:hover img {
+    transform: scale(1.08);
+}
+
+/* ===========================================================
+   BUTTON
+=========================================================== */
+
+.btn {
+    transition: var(--transition);
+}
