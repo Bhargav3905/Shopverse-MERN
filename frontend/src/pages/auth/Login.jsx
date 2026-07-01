@@ -33,33 +33,112 @@ const Login = () => {
     }
 
     return (
-        <>
-            <div className="container d-flex justify-content-center align-items-center">
+        <div className="container py-5">
 
-                <div className="col-6 mt-5" style={{ border: "1px solid", padding: "60px", borderRadius: "35px" }}>
-                    <h1 className='text-center'>Login Page</h1>
+            <div className="card border-0 shadow-lg overflow-hidden">
 
-                    <form onSubmit={handleSubmit}>
-                        <div className="mb-3">
-                            <label className="form-label">Email address</label>
-                            <input type="email" className="form-control" onChange={(e) => setEmail(e.target.value)} />
-                            <div className="form-text">We'll never share your email with anyone else.</div>
+                <div className="row g-0 align-items-center">
+
+                    {/* Left Image */}
+
+                    <div className="col-lg-6 d-flex justify-content-center align-items-center p-5">
+
+                        <div
+                            style={{
+                                width: "100%",
+                                maxWidth: "460px"
+                            }}
+                        >
+
+                            <img
+                                src="/login.svg"
+                                alt="Login"
+                                className="img-fluid"
+                                style={{
+                                    maxHeight: "420px",
+                                    animation: "float 4s ease-in-out infinite"
+                                }}
+                            />
+
                         </div>
 
-                        <div className="mb-3">
-                            <label className="form-label">Password</label>
-                            <input type="password" className="form-control" onChange={(e) => setPassword(e.target.value)} />
+                    </div>
 
-                            <div className="mt-2">
-                                <Link to="/forgot-password">Forgot Password?</Link>
+                    {/* Right Form */}
+
+                    <div className="col-lg-6 p-5">
+
+                        <span className="badge bg-success-subtle text-success px-3 py-2 rounded-pill mb-3">
+                            Welcome Back
+                        </span>
+
+                        <h1 className="fw-bold display-5 mb-3">
+                            Sign In
+                        </h1>
+
+                        <p className="text-muted mb-4">
+                            Login to continue shopping with ShopVerse.
+                        </p>
+
+                        <form onSubmit={handleSubmit}>
+
+                            <div className="mb-3">
+                                <label>Email</label>
+
+                                <input
+                                    type="email"
+                                    className="form-control"
+                                    onChange={(e) => setEmail(e.target.value)}
+                                />
                             </div>
-                        </div>
 
-                        <button type="submit" className="btn btn-primary">Submit</button>
-                    </form>
+                            <div className="mb-2">
+                                <label>Password</label>
+
+                                <input
+                                    type="password"
+                                    className="form-control"
+                                    onChange={(e) => setPassword(e.target.value)}
+                                />
+                            </div>
+
+                            <div className="text-end mb-4">
+
+                                <Link
+                                    to="/forgot-password"
+                                    className="text-success text-decoration-none"
+                                >
+                                    Forgot Password?
+                                </Link>
+
+                            </div>
+
+                            <button
+                                type="submit"
+                                className="btn btn-custom-primary w-100 py-3">
+                                Sign In
+                            </button>
+
+                        </form>
+
+                        <p className="text-center mt-4 mb-0">
+                            New to ShopVerse?{" "}
+                            <span
+                                className="text-success fw-semibold"
+                                style={{ cursor: "pointer" }}
+                                onClick={() => navigate("/register")}
+                            >
+                                Create Account
+                            </span>
+                        </p>
+
+                    </div>
+
                 </div>
+
             </div>
-        </>
+
+        </div>
     )
 }
 

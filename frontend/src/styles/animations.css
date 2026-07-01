@@ -10,6 +10,7 @@
     from {
         opacity: 0;
     }
+
     to {
         opacity: 1;
     }
@@ -71,14 +72,18 @@
     transition: var(--transition);
 }
 
-@keyframes floatImage{
-    0%{
-        transform:translateY(0px);
+/* Image Float */
+
+@keyframes float {
+    0% {
+        transform: translateY(0px);
     }
-    50%{
-        transform:translateY(-12px);
+
+    50% {
+        transform: translateY(-12px);
     }
-    100%{
-        transform:translateY(0px);
+
+    100% {
+        transform: translateY(0px);
     }
 }

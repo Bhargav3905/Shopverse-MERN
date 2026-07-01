@@ -35,42 +35,118 @@ const Register = () => {
     }
 
     return (
-        <>
-            <div className="container d-flex justify-content-center align-items-center">
+        <div className="container py-5">
 
-                <div className="col-6 mt-5" style={{ border: "1px solid", padding: "60px", borderRadius: "35px" }}>
+            <div className="card border-0 shadow-lg overflow-hidden">
 
-                    <h1 className='text-center'>Register Page</h1>
+                <div className="row g-0 align-items-center">
 
-                    <form onSubmit={handleSubmit}>
+                    <div className="col-lg-6 p-5">
 
-                        <div className="mb-3">
-                            <label className="form-label">Email address</label>
-                            <input type="email" value={email} className="form-control" onChange={(e) => setEmail(e.target.value)} />
-                            <div className="form-text">We'll never share your email with anyone else.</div>
+                        <span className="badge bg-success-subtle text-success px-3 py-2 rounded-pill mb-3">
+                            Create Account
+                        </span>
+
+                        <h1 className="fw-bold display-5 mb-3">
+                            Join ShopVerse
+                        </h1>
+
+                        <p className="text-muted mb-4">
+                            Create your account to discover premium products,
+                            secure checkout and a seamless shopping experience.
+                        </p>
+
+                        <form onSubmit={handleSubmit}>
+
+                            <div className="mb-3">
+                                <label>Email</label>
+                                <input
+                                    type="email"
+                                    value={email}
+                                    className="form-control"
+                                    onChange={(e) => setEmail(e.target.value)}
+                                />
+                            </div>
+
+                            <div className="mb-3">
+                                <label>Full Name</label>
+                                <input
+                                    type="text"
+                                    value={fullName}
+                                    className="form-control"
+                                    onChange={(e) => setFullName(e.target.value)}
+                                />
+                            </div>
+
+                            <div className="mb-3">
+                                <label>Phone</label>
+                                <input
+                                    type="number"
+                                    value={phone}
+                                    className="form-control"
+                                    onChange={(e) => setPhone(e.target.value)}
+                                />
+                            </div>
+
+                            <div className="mb-4">
+                                <label>Password</label>
+                                <input
+                                    type="password"
+                                    value={password}
+                                    className="form-control"
+                                    onChange={(e) => setPassword(e.target.value)}
+                                />
+                            </div>
+
+                            <button
+                                type="submit"
+                                className="btn btn-custom-primary w-100 py-3">
+                                Create Account
+                            </button>
+
+                        </form>
+
+                        <p className="text-center mt-4 mb-0">
+                            Already have an account?{" "}
+                            <span
+                                className="text-success fw-semibold"
+                                style={{ cursor: "pointer" }}
+                                onClick={() => navigate("/login")}
+                            >
+                                Sign In
+                            </span>
+                        </p>
+
+                    </div>
+
+                    <div className="col-lg-6 d-flex justify-content-center align-items-center p-5">
+
+                        <div
+                            style={{
+                                width: "100%",
+                                maxWidth: "460px"
+                            }}
+                        >
+
+                            <img
+                                src="/sign up.svg"
+                                alt="Register"
+                                className="img-fluid"
+                                style={{
+                                    maxHeight: "420px",
+                                    animation: "float 4s ease-in-out infinite"
+                                }}
+                            />
+
                         </div>
 
-                        <div className="mb-3">
-                            <label className="form-label">Full Name</label>
-                            <input type="text" value={fullName} className="form-control" onChange={(e) => setFullName(e.target.value)} />
-                        </div>
+                    </div>
 
-                        <div className="mb-3">
-                            <label className="form-label">Phone Number</label>
-                            <input type="number" value={phone} className="form-control" onChange={(e) => setPhone(e.target.value)} />
-                        </div>
-
-                        <div className="mb-3">
-                            <label className="form-label">Password</label>
-                            <input type="password" value={password} className="form-control" onChange={(e) => setPassword(e.target.value)} />
-                        </div>
-
-                        <button type="submit" className="btn btn-primary">Submit</button>
-
-                    </form>
                 </div>
+
             </div>
-        </>
+
+        </div>
     )
 }
 
