@@ -20,57 +20,114 @@ const Dashboard = () => {
     }, []);
 
     return (
-        <div className="container mt-5">
-            <h1 className="mb-5">Admin Dashboard</h1>
+        <div className="container py-5">
+
+            <div className="mb-5">
+
+                <h1 className="fw-bold section-title">
+                    Admin Dashboard
+                </h1>
+
+                <p className="text-muted">
+                    Monitor products, categories, users, orders and revenue.
+                </p>
+
+            </div>
 
             <div className="row g-4">
 
-                <div className="col-md-4">
-                    <div className="card shadow">
-                        <div className="card-body text-center">
-                            <h5>Total Products</h5>
-                            <h2>{dashboard.totalProducts}</h2>
+                <div className="col-lg-4 col-md-6">
+                    <div className="card border-0 shadow-sm h-100">
+
+                        <div className="card-body text-center py-5">
+
+                            <h5 className="text-muted mb-3">
+                                Total Products
+                            </h5>
+
+                            <h1 className="fw-bold text-success">
+                                {dashboard.totalProducts || 0}
+                            </h1>
+
                         </div>
+
                     </div>
                 </div>
 
-                <div className="col-md-4">
-                    <div className="card shadow">
-                        <div className="card-body text-center">
-                            <h5>Total Categories</h5>
-                            <h2>{dashboard.totalCategories}</h2>
+                <div className="col-lg-4 col-md-6">
+                    <div className="card border-0 shadow-sm h-100">
+
+                        <div className="card-body text-center py-5">
+
+                            <h5 className="text-muted mb-3">
+                                Total Categories
+                            </h5>
+
+                            <h1 className="fw-bold text-primary">
+                                {dashboard.totalCategories || 0}
+                            </h1>
+
                         </div>
+
                     </div>
                 </div>
 
-                <div className="col-md-4">
-                    <div className="card shadow">
-                        <div className="card-body text-center">
-                            <h5>Total Users</h5>
-                            <h2>{dashboard.totalUsers}</h2>
+                <div className="col-lg-4 col-md-6">
+                    <div className="card border-0 shadow-sm h-100">
+
+                        <div className="card-body text-center py-5">
+
+                            <h5 className="text-muted mb-3">
+                                Total Users
+                            </h5>
+
+                            <h1 className="fw-bold text-warning">
+                                {dashboard.totalUsers || 0}
+                            </h1>
+
                         </div>
+
                     </div>
                 </div>
 
-                <div className="col-md-6">
-                    <div className="card shadow">
-                        <div className="card-body text-center">
-                            <h5>Total Orders</h5>
-                            <h2>{dashboard.totalOrders}</h2>
+                <div className="col-lg-6">
+                    <div className="card border-0 shadow-sm h-100">
+
+                        <div className="card-body text-center py-5">
+
+                            <h5 className="text-muted mb-3">
+                                Total Orders
+                            </h5>
+
+                            <h1 className="fw-bold">
+                                {dashboard.totalOrders || 0}
+                            </h1>
+
                         </div>
+
                     </div>
                 </div>
 
-                <div className="col-md-6">
-                    <div className="card shadow">
-                        <div className="card-body text-center">
-                            <h5>Total Revenue</h5>
-                            <h2>₹{dashboard.totalRevenue}</h2>
+                <div className="col-lg-6">
+                    <div className="card border-0 shadow-sm h-100">
+
+                        <div className="card-body text-center py-5">
+
+                            <h5 className="text-muted mb-3">
+                                Total Revenue
+                            </h5>
+
+                            <h1 className="fw-bold text-success">
+                                ₹{dashboard.totalRevenue || 0}
+                            </h1>
+
                         </div>
+
                     </div>
                 </div>
 
             </div>
+
         </div>
     );
 };

@@ -111,82 +111,144 @@ const ManageProducts = () => {
         <>
 
             <div className="container py-4">
-                <h1>Manage Products</h1>
 
-                <form onSubmit={handleSubmit}>
-                    <label>Product Name:</label>
-                    <input value={formData.productName} className='form-control' type="text" name="productName" required
-                        onChange={(e) => setFormData({ ...formData, productName: e.target.value })} />
-                    <br />
+                <div className="mb-5">
 
-                    <label><b>Select Category</b></label>
-                    <select value={formData.category} onChange={(e) => setFormData({ ...formData, category: e.target.value })} className='form-control'>
-                        <option value="">Select Category</option>
-                        {
-                            categories?.map((item) => (
-                                <option value={item._id} key={item._id}>{item.categoryName}</option>
-                            ))
-                        }
-                    </select>
+                    <h1 className="section-title fw-bold">
+                        Manage Products
+                    </h1>
 
-                    <label>Image:</label>
-                    <input ref={fileInputRef} className='form-control' type="file" name="image"
-                        onChange={(e) => setFormData({ ...formData, image: e.target.files[0] })} />
-                    <br />
+                    <p className="text-muted">
+                        Add, update and manage products available in ShopVerse.
+                    </p>
 
-                    <label>Description:</label>
-                    <textarea value={formData.description} className='form-control' name="description" required
-                        onChange={(e) => setFormData({ ...formData, description: e.target.value })}></textarea>
-                    <br />
+                </div>
 
-                    <label>Price:</label>
-                    <input value={formData.price} className='form-control' type="number" name="price" required
-                        onChange={(e) => setFormData({ ...formData, price: e.target.value })} />
-                    <br />
+                <div className="card border-0 shadow-sm mb-5">
 
-                    <button className='btn btn-primary' type="submit">{editId ? "Update Product" : "Add Product"}</button>
-                </form>
+                    <div className="card-body p-4">
 
-                <div className="table-responsive mt-4">
-                    <table className="table table-striped table-hover align-middle mb-0">
-                        <thead className="table-light">
-                            <tr>
-                                <th>#</th>
-                                <th>Product Name</th>
-                                <th>Image</th>
-                                <th>Category</th>
-                                <th>Description</th>
-                                <th>Price</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
+                        <h4 className="fw-bold mb-4">
+                            {editId ? "Update Product" : "Add New Product"}
+                        </h4>
 
-                        <tbody>
-                            {products.map((item, index) => (
-                                <tr key={item._id}>
-                                    <th>{index + 1}</th>
-                                    <td>{item.productName}</td>
-                                    <td>
-                                        <img
-                                            src={`http://localhost:3000/uploads/${item.image}`}
-                                            alt={item.productName} width="70" height="90"
-                                            style={{
-                                                objectFit: "cover",
-                                                borderRadius: "4px"
-                                            }}
-                                        />
-                                    </td>
-                                    <td>{item.category?.categoryName}</td>
-                                    <td>{item.description}</td>
-                                    <td>Rs {item.price}</td>
-                                    <td>
-                                        <button type="button" className="btn btn-warning btn-sm me-2" onClick={() => handleEdit(item)}>Edit</button>
-                                        <button type="button" className="btn btn-danger btn-sm" onClick={() => handleDelete(item._id)}>Delete</button>
-                                    </td>
+
+                        <form onSubmit={handleSubmit}>
+                            <label>Product Name:</label>
+                            <input value={formData.productName} className='form-control' type="text" name="productName" required
+                                onChange={(e) => setFormData({ ...formData, productName: e.target.value })} />
+                            <br />
+
+                            <label><b>Select Category</b></label>
+                            <select value={formData.category} onChange={(e) => setFormData({ ...formData, category: e.target.value })} className='form-control'>
+                                <option value="">Select Category</option>
+                                {
+                                    categories?.map((item) => (
+                                        <option value={item._id} key={item._id}>{item.categoryName}</option>
+                                    ))
+                                }
+                            </select>
+
+                            <label>Image:</label>
+                            <input ref={fileInputRef} className='form-control' type="file" name="image"
+                                onChange={(e) => setFormData({ ...formData, image: e.target.files[0] })} />
+                            <br />
+
+                            <label>Description:</label>
+                            <textarea value={formData.description} className='form-control' name="description" required
+                                onChange={(e) => setFormData({ ...formData, description: e.target.value })}></textarea>
+                            <br />
+
+                            <label>Price:</label>
+                            <input value={formData.price} className='form-control' type="number" name="price" required
+                                onChange={(e) => setFormData({ ...formData, price: e.target.value })} />
+                            <br />
+
+                            <button className="btn btn-custom-primary rounded-pill px-4" type="submit">{editId ? "Update Product" : "Add Product"}</button>
+                        </form>
+                    </div>
+
+                </div>
+
+                <div className="card border-0 shadow-sm">
+
+                    <div className="card-body">
+
+                        <div className="d-flex justify-content-between align-items-center mb-4">
+
+                            <h4 className="fw-bold mb-0">
+                                Product List
+                            </h4>
+
+                            <span className="badge bg-success">
+                                {products.length} Products
+                            </span>
+
+                        </div>
+
+                        <div className="table-responsive"></div>
+                        <table className="table table-striped table-hover align-middle mb-0">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Product Name</th>
+                                    <th>Image</th>
+                                    <th>Category</th>
+                                    <th>Description</th>
+                                    <th>Price</th>
+                                    <th>Actions</th>
                                 </tr>
-                            ))}
-                        </tbody>
-                    </table>
+                            </thead>
+
+                            <tbody>
+                                {products.map((item, index) => (
+                                    <tr key={item._id}>
+                                        <th>{index + 1}</th>
+                                        <td>{item.productName}</td>
+                                        <td>
+                                            <img
+                                                src={`http://localhost:3000/uploads/${item.image}`}
+                                                alt={item.productName} width="70" height="90"
+                                                style={{
+                                                    width: "70px",
+                                                    height: "70px",
+                                                    objectFit: "cover",
+                                                    borderRadius: "12px"
+                                                }}
+                                            />
+                                        </td>
+                                        <td>{item.category?.categoryName}</td>
+                                        <td>{item.description}</td>
+                                        <td><span className="fw-bold text-success">
+                                            ₹{item.price}
+                                        </span></td>
+                                        <td>
+                                            <div className="d-flex gap-2 flex-nowrap">
+
+                                                <button
+                                                    type="button"
+                                                    className="btn btn-warning btn-sm rounded-pill px-3"
+                                                    onClick={() => handleEdit(item)}
+                                                >
+                                                    Edit
+                                                </button>
+
+                                                <button
+                                                    type="button"
+                                                    className="btn btn-outline-danger btn-sm rounded-pill px-3"
+                                                    onClick={() => handleDelete(item._id)}
+                                                >
+                                                    Delete
+                                                </button>
+
+                                            </div>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+
                 </div>
 
             </div>
