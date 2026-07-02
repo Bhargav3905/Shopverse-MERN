@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from 'react'
 import axiosInstance from '../services/axiosInstance';
+import { IMAGE_URL } from "../utils/helper";
 
 const ManageCategories = () => {
 
@@ -159,7 +160,7 @@ const ManageCategories = () => {
                                             <td>{item.categoryName}</td>
                                             <td>
                                                 <img
-                                                    src={`http://localhost:3000/uploads/${item.image}`}
+                                                    src={`${IMAGE_URL}/${item.image}`}
                                                     alt={item.categoryName} width="70" height="90"
                                                     style={{
                                                         width: "70px",

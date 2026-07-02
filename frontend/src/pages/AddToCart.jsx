@@ -3,6 +3,7 @@ import axiosInstance from '../services/axiosInstance.js'
 import { useNavigate, Navigate } from 'react-router-dom';
 import { isAdmin } from "../utils/auth";
 import PaymentButton from '../components/PaymentButton.jsx';
+import { IMAGE_URL } from "../utils/helper";
 
 const AddToCart = () => {
 
@@ -92,8 +93,10 @@ const AddToCart = () => {
                                                 <div key={item._id} className="row g-4 align-items-center border-bottom pb-4 mb-4">
 
                                                     <div className="col-md-4 text-center">
-                                                        <img src={`http://localhost:3000/uploads/${item.product.image}`} alt={item.product.productName}
-                                                            className="img-fluid rounded-4 border" style={{ maxHeight: "250px", objectFit: "cover" }} />
+                                                        <img src={`${IMAGE_URL}/${item.product.image}`}
+                                                            alt={item.product.productName}
+                                                            className="img-fluid rounded-4 border"
+                                                            style={{ maxHeight: "250px", objectFit: "cover" }} />
                                                     </div>
 
                                                     <div className="col-md-8">

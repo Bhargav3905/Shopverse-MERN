@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Card from '../components/Card'
 import axiosInstance from '../services/axiosInstance.js'
+import { IMAGE_URL } from "../utils/helper";
 
 const Shop = () => {
 
@@ -161,7 +162,7 @@ const Shop = () => {
                                 >
 
                                     <img
-                                        src={`http://localhost:3000/uploads/${category.image}`}
+                                        src={`${IMAGE_URL}/${category.image}`}
                                         alt={category.categoryName}
                                         className="card-img-top"
                                         style={{

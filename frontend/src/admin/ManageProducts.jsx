@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from 'react'
 import axiosInstance from '../services/axiosInstance';
+import { IMAGE_URL } from "../utils/helper";
 
 const ManageProducts = () => {
 
@@ -207,7 +208,7 @@ const ManageProducts = () => {
                                         <td>{item.productName}</td>
                                         <td>
                                             <img
-                                                src={`http://localhost:3000/uploads/${item.image}`}
+                                                src={`${IMAGE_URL}/${item.image}`}
                                                 alt={item.productName} width="70" height="90"
                                                 style={{
                                                     width: "70px",
