@@ -227,15 +227,21 @@ The interface follows these principles:
 
 Potential future enhancements include:
 
-- Dark Mode
-- Wishlist
-- Product Ratings
-- Image Gallery
-- Product Reviews
-- Address Management
-- Coupons & Discounts
-- Sales Analytics
-- Charts for Admin Dashboard
-- Theme Customization
+- Dark Mode support
+- Wishlist functionality
+- Product Reviews & Ratings
+- Coupon and Discount System
+- User Address Management
+- Product Sorting Options
+- Pagination & Infinite Scroll
+- Product Recommendation Engine
+- Order Tracking
+- Email Notifications
+- Admin Analytics Dashboard
+- Sales Charts & Reports
+- Inventory Alerts
+- Multi-language Support
+- PWA (Progressive Web App)
+- Performance Optimization
 
 ---
