@@ -4,7 +4,9 @@ dotenv.config();
 import nodemailer from "nodemailer";
 
 const transporter = nodemailer.createTransport({
-    service: "gmail",
+    host: "smtp.gmail.com",
+    port: 587,
+    secure: false,
     auth: {
         user: process.env.ADMIN_EMAIL_ID,
         pass: process.env.ADMIN_APP_PASS,
@@ -32,7 +34,8 @@ const sendEmail = async (to, subject, text) => {
         await transporter.sendMail(mailOptions);
         console.log("Email sent");
     } catch (error) {
-        console.log(error);
+        console.error("Email Error:", error);
+        throw error;
     }
 };
 

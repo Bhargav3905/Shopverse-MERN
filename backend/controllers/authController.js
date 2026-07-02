@@ -17,11 +17,22 @@ export const forgotPassword = async (req, res) => {
         await PasswordReset.deleteMany({ email });
         await PasswordReset.create({ email, otp, expiresAt: new Date(Date.now() + 5 * 60 * 1000) });
 
-        sendEmail(email, "ShopVerse Password Reset OTP", `Your OTP is ${otp}. It expires in 5 minutes.`);
-        res.status(200).json({ message: "OTP sent successfully" });
+        await sendEmail(
+            email,
+            "ShopVerse Password Reset OTP",
+            `Your OTP is ${otp}. It expires in 5 minutes.`
+        );
+
+        return res.status(200).json({
+            message: "OTP sent successfully"
+        });
     }
     catch (error) {
-        res.status(500).json({ message: "Server Error" });
+        console.error(error);
+
+        return res.status(500).json({
+            message: "Unable to send email"
+        });
     }
 };
 
