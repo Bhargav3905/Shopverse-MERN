@@ -51,7 +51,7 @@ const ProductDetail = () => {
 
                     <div className="col-lg-6">
                         <img
-                            src={`${IMAGE_URL}${product?.image}`} alt={product?.productName}
+                            src={`${IMAGE_URL}/${product?.image}`} alt={product?.productName}
                             className="img-fluid w-100 h-100" style={{ objectFit: "cover", minHeight: "500px" }} />
                     </div>
 

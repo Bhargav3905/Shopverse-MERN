@@ -14,7 +14,7 @@ const Card = ({ item, handleAddToCart }) => {
     return (
         <div className="card h-100 shadow-sm border-0 rounded-4 overflow-hidden">
 
-            <img src={`${IMAGE_URL}${item.image}`} className="card-img-top" alt={item.productName}
+            <img src={`${IMAGE_URL}/${item.image}`} className="card-img-top" alt={item.productName}
                 style={{ height: "220px", objectFit: "cover", transition: "0.35s" }} />
 
             <div className="card-body d-flex flex-column">
