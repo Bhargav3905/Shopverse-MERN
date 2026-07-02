@@ -1,6 +1,6 @@
 import express from 'express'
 const app = express()
-const port = 3000
+const port = process.env.PORT || 3000;
 
 import mongoose from 'mongoose';
 import cors from 'cors';
@@ -17,7 +17,13 @@ import userRoute from "./routes/userRoute.js";
 import paymentRoute from "./routes/paymentRoute.js"
 
 connectDB();
-app.get('/', (req, res) => { res.send("Hello !"); })
+
+app.get("/", (req, res) => {
+    res.status(200).json({
+        success: true,
+        message: "ShopVerse API is running successfully 🚀",
+    });
+});
 
 // dependencies
 app.use(cors());
@@ -44,5 +50,5 @@ app.use("/api/dashboard", dashboardRoute);
 app.use('/api/payment', paymentRoute);
 
 app.listen(port, () => {
-    console.log(`Example app listening on port ${port}`);
-})
+    console.log(`Server running on port ${port}`);
+});
