@@ -72,9 +72,11 @@ const Home = () => {
                     <div className="col-lg-6 text-center">
 
                         <img
-                            src="https://bootstrapmade.com/content/demo/eStore/assets/img/product/product-f-9.webp"
-                            alt="Shopping"
-                            className="hero-image img-fluid"
+                            src="https://bootstrapmade.com/content/demo/eStore/assets/img/product/product-f-9.webp" alt="Shopping"
+                            className="hero-image img-fluid "
+                            style={{
+                                animation: "float 4s ease-in-out infinite"
+                            }}
                         />
 
                     </div>
