@@ -9,10 +9,10 @@ console.log("SMTP_USER:", process.env.SMTP_USER);
 console.log("ADMIN_EMAIL_ID:", process.env.ADMIN_EMAIL_ID);
 
 const transporter = nodemailer.createTransport({
-    host: process.env.SMTP_HOST,
-    port: Number(process.env.SMTP_PORT),
+    host: "smtp-relay.brevo.com",
+    port: 587,
     secure: false,
-    requireTLS: true,
+    family: 4,
     auth: {
         user: process.env.SMTP_USER,
         pass: process.env.SMTP_PASS,
@@ -20,10 +20,14 @@ const transporter = nodemailer.createTransport({
 });
 
 transporter.verify((error, success) => {
+    console.log("VERIFY START");
+
     if (error) {
-        console.error("SMTP Error:", error);
+        console.error("SMTP VERIFY ERROR");
+        console.error(error);
     } else {
-        console.log("SMTP Ready");
+        console.log("SMTP READY");
+        console.log(success);
     }
 });
 
