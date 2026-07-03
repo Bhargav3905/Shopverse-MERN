@@ -29,7 +29,6 @@ const ManageCategories = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        // help to manage images like key-value pair
         const form = new FormData();
 
         form.append("categoryName", formData.categoryName)
@@ -46,16 +45,15 @@ const ManageCategories = () => {
             }
             setEditId(null);
 
-            // to reset the form
             setFormData({
                 categoryName: "",
                 image: null
             })
-            // not directly the image - prototype clear, need useRef
+            
             if (fileInputRef.current) {
                 fileInputRef.current.value = null;
             }
-            // to update table
+            
             fetchCategory()
         } catch (error) {
             alert.log("Error", error);

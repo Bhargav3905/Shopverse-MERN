@@ -25,7 +25,6 @@ app.get("/", (req, res) => {
     });
 });
 
-// dependencies
 app.use(cors({
     origin: [
         "http://localhost:5173",

@@ -81,8 +81,6 @@ const Shop = () => {
                     placeholder="🔍 Search products..." onChange={(e) => searchProducts(e.target.value)} />
             </div>
 
-            {/* Category Filter */}
-
             <div className="container mt-5">
 
                 <div className="d-flex justify-content-between align-items-center mb-4">
@@ -191,7 +189,6 @@ const Shop = () => {
             <br />
             <br />
 
-            {/* Products */}
             {
                 products.length === 0 ?
                     <div className="text-center mt-5">
