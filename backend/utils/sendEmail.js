@@ -20,15 +20,16 @@ const transporter = nodemailer.createTransport({
 });
 
 transporter.verify((error, success) => {
-    console.log("VERIFY START");
+    console.log("===== SMTP VERIFY =====");
 
     if (error) {
-        console.error("SMTP VERIFY ERROR");
         console.error(error);
     } else {
         console.log("SMTP READY");
         console.log(success);
     }
+
+    console.log("=======================");
 });
 
 const sendEmail = async (to, subject, text) => {
