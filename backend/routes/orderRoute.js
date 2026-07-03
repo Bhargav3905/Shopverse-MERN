@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { protect } from "../middleware/authMiddleware.js";
 import { getOrders } from "../controllers/orderController.js";
+import sendEmail from "../utils/sendEmail.js";
 
 const router = Router();
 
