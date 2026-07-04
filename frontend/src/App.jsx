@@ -8,8 +8,6 @@ import Register from './pages/auth/Register'
 import Login from './pages/auth/Login'
 import Shop from './pages/Shop'
 import ManageProducts from './admin/ManageProducts'
-import ProtectedRoute from './components/ProtectedRoute'
-import UserRoute from './components/UserRoute'
 import ProductDetail from './pages/ProductDetail'
 import ManageCategories from './admin/ManageCategories'
 import AddToCart from './pages/AddToCart'
@@ -19,6 +17,9 @@ import ResetPassword from "./pages/auth/ResetPassword";
 import Orders from "./pages/Orders";
 import Dashboard from "./admin/Dashboard";
 import NotFound from "./pages/NotFound";
+import UserRoute from './components/UserRoute'
+import ProtectedRoute from './components/ProtectedRoute'
+import GuestRoute from "./components/GuestRoute";
 
 const App = () => {
   return (
@@ -44,11 +45,39 @@ const App = () => {
             </UserRoute>
           } />
 
-          <Route path="/register" element={<Register />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/shop/:id" element={<ProductDetail />} />
+          <Route
+            path="/register"
+            element={
+              <GuestRoute>
+                <Register />
+              </GuestRoute>
+            }
+          />
+          <Route
+            path="/login"
+            element={
+              <GuestRoute>
+                <Login />
+              </GuestRoute>
+            }
+          />
 
+          <Route
+            path="/profile"
+            element={
+              <UserRoute>
+                <Profile />
+              </UserRoute>
+            }
+          />
+          <Route
+            path="/shop/:id"
+            element={
+              <UserRoute>
+                <ProductDetail />
+              </UserRoute>
+            }
+          />
           <Route path="/add-to-cart" element={
             <UserRoute>
               <AddToCart />

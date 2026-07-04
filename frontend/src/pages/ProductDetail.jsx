@@ -3,20 +3,27 @@ import { useParams, useNavigate } from 'react-router-dom'
 import { isAdmin } from '../utils/auth'
 import axiosInstance from '../services/axiosInstance';
 import { IMAGE_URL } from "../utils/helper";
+import toast from "react-hot-toast";
+import LoadingSpinner from "../components/LoadingSpinner";
 
 const ProductDetail = () => {
 
     const admin = isAdmin();
     const navigate = useNavigate();
     const { id } = useParams();
-    const [product, setProduct] = useState(null)
+    const [product, setProduct] = useState(null);
+    const [loading, setLoading] = useState(true);
 
     const fetchProductDetail = async () => {
         try {
+            setLoading(true);
+
             const response = await axiosInstance.get(`/api/products/product/${id}`)
             setProduct(response.data.productList)
         } catch (error) {
-            alert(error.response);
+            toast.error(error.response?.data?.message || "Something went wrong");
+        } finally {
+            setLoading(false);
         }
     }
 
@@ -32,11 +39,15 @@ const ProductDetail = () => {
                     quantity: 1
                 }
             );
-            alert(response.data.message);
+            toast.success(response.data.message);
         } catch (error) {
-            alert(error.response?.data?.message || "Something went wrong");
+            toast.error(error.response?.data?.message || "Something went wrong");
         }
     };
+
+    if (loading) {
+        return <LoadingSpinner />;
+    }
 
     return (
         <div className="container py-4">

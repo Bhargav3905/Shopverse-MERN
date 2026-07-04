@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axiosInstance from "../../services/axiosInstance";
 import { useNavigate, useLocation } from "react-router-dom";
+import toast from "react-hot-toast";
 
 const ResetPassword = () => {
 
@@ -12,16 +13,27 @@ const ResetPassword = () => {
         otp: "",
         password: ""
     });
+    const [loading, setLoading] = useState(false);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setLoading(true);
+
+        let id;
         try {
+            id = toast.loading("Resetting password...");
+
             const response = await axiosInstance.post("/api/auth/reset-password", form);
-            alert(response.data.message);
-            navigate("/login");
+            toast.success(response.data.message);
+            setTimeout(() => {
+                navigate("/login");
+            }, 1000)
         }
         catch (error) {
-            alert(error.response.data.message);
+            toast.error(error.response.data.message);
+        } finally {
+            toast.dismiss(id);
+            setLoading(false);
         }
     };
 
@@ -90,13 +102,12 @@ const ResetPassword = () => {
                                 <input
                                     className="form-control"
                                     placeholder="Enter OTP"
-                                    onChange={(e) =>
-                                        setForm({
-                                            ...form,
-                                            otp: e.target.value
-                                        })
-                                    }
                                     required
+                                    inputMode="numeric"
+                                    minLength={6} maxLength={6}
+                                    onChange={(e) =>
+                                        setForm({ ...form, otp: e.target.value.replace(/\D/g, "").slice(0, 6) })
+                                    }
                                 />
 
                             </div>
@@ -108,22 +119,28 @@ const ResetPassword = () => {
                                 <input
                                     type="password"
                                     className="form-control"
+                                    minLength={5}
+                                    required
                                     placeholder="Enter new password"
                                     onChange={(e) =>
-                                        setForm({
-                                            ...form,
-                                            password: e.target.value
-                                        })
+                                        setForm({ ...form, password: e.target.value })
                                     }
-                                    required
                                 />
 
                             </div>
 
                             <button
                                 className="btn btn-custom-primary w-100 py-3"
+                                disabled={loading}
                             >
-                                Reset Password
+                                {loading ? (
+                                    <>
+                                        <span className="spinner-border spinner-border-sm me-2"></span>
+                                        Resetting...
+                                    </>
+                                ) : (
+                                    "Reset Password"
+                                )}
                             </button>
 
                         </form>

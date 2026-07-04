@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react'
 import Card from '../components/Card'
 import axiosInstance from '../services/axiosInstance.js'
 import { IMAGE_URL } from "../utils/helper";
+import toast from "react-hot-toast";
+import LoadingSpinner from '../components/LoadingSpinner.jsx';
 
 const Shop = () => {
 
@@ -10,14 +12,18 @@ const Shop = () => {
     const [search, setSearch] = useState("");
     const [categories, setCategories] = useState([]);
     const [selectedCategory, setSelectedCategory] = useState("all");
+    const [loading, setLoading] = useState(true);
 
     const fetchProducts = async (categoryId = "") => {
         try {
+            setLoading(true);
             const url = categoryId ? `/api/products/category/${categoryId}` : "/api/products/list-product";
             const response = await axiosInstance.get(url);
             setProducts(response.data.products);
         } catch (error) {
-            alert("Error fetching products: ", error);
+            toast.error("Error fetching products: ", error);
+        } finally {
+            setLoading(false);
         }
     }
 
@@ -26,7 +32,7 @@ const Shop = () => {
             const response = await axiosInstance.get('api/category/list-category');
             setCategories(response.data.category);
         } catch (error) {
-            alert(error);
+            toast.error("Error fetching categories: ", error);
         }
     };
 
@@ -38,9 +44,9 @@ const Shop = () => {
     const handleAddToCart = async (productId) => {
         try {
             const response = await axiosInstance.post('/api/add-to-cart', { productId, quantity: 1 })
-            alert(response.data.message)
+            toast.success(response.data.message)
         } catch (error) {
-            alert(error)
+            toast.error(error.response?.data?.message || "Something went wrong");
         }
     }
 
@@ -67,9 +73,13 @@ const Shop = () => {
             setProducts(result);
         }
         catch (error) {
-            alert(error);
+            toast.error(error.response?.data?.message || "Something went wrong");
         }
     };
+
+    if (loading) {
+        return <LoadingSpinner />;
+    }
 
     return (
         <>

@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import axiosInstance from '../services/axiosInstance.js'
-import { useNavigate, Navigate } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import { isAdmin } from "../utils/auth";
 import PaymentButton from '../components/PaymentButton.jsx';
 import { IMAGE_URL } from "../utils/helper";
+import toast from "react-hot-toast";
+import Swal from "sweetalert2";
+import LoadingSpinner from '../components/LoadingSpinner.jsx';
 
 const AddToCart = () => {
 
@@ -12,19 +15,23 @@ const AddToCart = () => {
         return <Navigate to="/" />;
     }
 
-    const navigate = useNavigate();
     const [cartItem, setCartItem] = useState([])
+    const [loading, setLoading] = useState(true);
 
     const fetchAddToCart = async () => {
         try {
+            setLoading(true);
+
             const response = await axiosInstance.get('/api/get-cart')
             setCartItem(response.data.cartItems)
         } catch (error) {
             if (error.response?.status === 404) {
                 setCartItem([]);
             } else {
-                alert(error);
+                toast.error(error.response?.data?.message || "Something went wrong.");
             }
+        } finally {
+            setLoading(false);
         }
     }
 
@@ -35,34 +42,64 @@ const AddToCart = () => {
     const updateQuantity = async (productId, quantity) => {
         try {
             const response = await axiosInstance.put('/api/update-quantity', { productId, quantity })
-            alert(response.data.message)
+            toast.success(response.data.message)
             fetchAddToCart()
         } catch (error) {
-            alert(error)
+            toast.error(error.response?.data?.message || "Something went wrong");
         }
     }
 
     const removeItem = async (itemId) => {
+
+        const result = await Swal.fire({
+            title: "Remove Item?",
+            icon: "question",
+            showCancelButton: true,
+            confirmButtonColor: "#198754",
+            cancelButtonColor: "#dc3545",
+            confirmButtonText: "Remove"
+        });
+
+        if (!result.isConfirmed) return;
+
         try {
             const response = await axiosInstance.delete(`/api/remove-item/${itemId}`)
-            alert(response.data.message)
+            toast.success(response.data.message)
             fetchAddToCart()
         } catch (error) {
-            alert(error)
+            toast.error(error.response?.data?.message || "Something went wrong");
         }
     }
 
     const handleClearCart = async () => {
+
+        const result = await Swal.fire({
+            title: "Clear Cart?",
+            text: "All items will be removed.",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonText: "Clear Cart",
+            cancelButtonText: "Cancel",
+            confirmButtonColor: "#198754",
+            cancelButtonColor: "#dc3545"
+        });
+
+        if (!result.isConfirmed) return;
+
         try {
             const response = await axiosInstance.delete(`/api/clear-cart`)
-            alert(response.data.message)
+            toast.success(response.data.message)
             fetchAddToCart()
         } catch (error) {
-            alert(error)
+            toast.error(error.response?.data?.message || "Something went wrong");
         }
     }
 
     const totalAmount = cartItem.reduce((acc, item) => acc + Number(item.product.price) * item.quantity, 0);
+
+    if (loading) {
+        return <LoadingSpinner />;
+    }
 
     return (
         <>

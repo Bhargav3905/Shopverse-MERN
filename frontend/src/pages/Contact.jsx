@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import axiosInstance from '../services/axiosInstance';
+import toast from "react-hot-toast";
 
 const Contact = () => {
 
@@ -9,20 +10,28 @@ const Contact = () => {
         subject: "",
         message: ""
     })
+    const [loading, setLoading] = useState(false);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setLoading(true);
 
         if (!formData.name.trim() || !formData.email.trim() || !formData.subject.trim() || !formData.message.trim()) {
-            alert("Please fill all fields.");
+            toast.error("Please fill all fields.");
+            setLoading(false);
             return;
         }
 
+        let id;
         try {
+            id = toast.loading("Sending message...");
             const response = await axiosInstance.post("/api/contacts/contact", formData);
-            alert(response.data.message);
+            toast.success(response.data.message);
         } catch (error) {
-            alert(error.response?.data?.message || "Something went wrong.");
+            toast.error(error.response?.data?.message || "Something went wrong.");
+        } finally {
+            toast.dismiss(id);
+            setLoading(false);
         }
     }
 
@@ -44,7 +53,7 @@ const Contact = () => {
 
                         <div className="mb-3">
                             <label className="form-label">Name</label>
-                            <input type="text" className="form-control" required value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })} />
+                            <input type="text" minLength={3} className="form-control" required value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })} />
                         </div>
 
                         <div className="mb-3">
@@ -54,16 +63,23 @@ const Contact = () => {
 
                         <div className="mb-3">
                             <label className="form-label">Subject</label>
-                            <input type="text" className="form-control" required value={formData.subject} onChange={(e) => setFormData({ ...formData, subject: e.target.value })} />
+                            <input type="text" minLength={5} className="form-control" required value={formData.subject} onChange={(e) => setFormData({ ...formData, subject: e.target.value })} />
                         </div>
 
                         <div className="mb-4">
                             <label className="form-label">Message</label>
-                            <textarea rows="5" className="form-control" required value={formData.message} onChange={(e) => setFormData({ ...formData, message: e.target.value })} />
+                            <textarea rows="5" minLength={10} className="form-control" required value={formData.message} onChange={(e) => setFormData({ ...formData, message: e.target.value })} />
                         </div>
 
-                        <button type="submit" className="btn btn-primary-custom">
-                            Send Message
+                        <button type="submit" className="btn btn-primary-custom" disabled={loading}>
+                            {loading ? (
+                                <>
+                                    <span className="spinner-border spinner-border-sm me-2"></span>
+                                    Sending...
+                                </>
+                            ) : (
+                                "Send Message"
+                            )}
                         </button>
 
                     </form>

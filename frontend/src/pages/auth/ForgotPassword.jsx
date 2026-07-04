@@ -1,23 +1,37 @@
 import { useState } from "react";
 import axiosInstance from "../../services/axiosInstance";
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 const ForgotPassword = () => {
 
     const navigate = useNavigate();
     const [email, setEmail] = useState("");
+    const [loading, setLoading] = useState(false);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setLoading(true);
+
+        let id;
+
         try {
+            id = toast.loading("Sending OTP...");
+
             const response = await axiosInstance.post("/api/auth/forgot-password", { email });
-            alert(response.data.message);
-            navigate("/reset-password", {
-                state: { email }
-            });
+
+            toast.success(response.data.message);
+            setTimeout(() => {
+                navigate("/reset-password", {
+                    state: { email }
+                });
+            }, 1000);
         }
         catch (error) {
-            alert(error.response.data.message);
+            toast.error(error.response.data.message);
+        } finally {
+            toast.dismiss(id);
+            setLoading(false);
         }
     }
 
@@ -61,9 +75,18 @@ const ForgotPassword = () => {
                             </div>
 
                             <button
+                                type="submit"
+                                disabled={loading}
                                 className="btn btn-custom-primary w-100 py-3"
                             >
-                                Send OTP
+                                {loading ? (
+                                    <>
+                                        <span className="spinner-border spinner-border-sm me-2"></span>
+                                        Sending OTP...
+                                    </>
+                                ) : (
+                                    "Send OTP"
+                                )}
                             </button>
 
                         </form>

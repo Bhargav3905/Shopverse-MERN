@@ -10,9 +10,7 @@ const Home = () => {
     const userName = localStorage.getItem("fullName");
 
     const handlePrimaryButton = () => {
-
         navigate(admin ? "/admin-dashboard" : "/shop");
-
     };
 
     return (

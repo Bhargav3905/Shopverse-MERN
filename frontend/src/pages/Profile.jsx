@@ -2,6 +2,7 @@ import { useState } from "react";
 import axiosInstance from "../services/axiosInstance";
 import { Link } from "react-router-dom";
 import { isAdmin } from "../utils/auth";
+import toast from "react-hot-toast";
 
 const Profile = () => {
 
@@ -12,12 +13,24 @@ const Profile = () => {
         newPassword: "",
         confirmPassword: ""
     });
+    const [loading, setLoading] = useState(false);
 
     const handleChangePassword = async (e) => {
         e.preventDefault();
+        setLoading(true);
+
+        if (formData.newPassword !== formData.confirmPassword) {
+            toast.error("Passwords do not match");
+            setLoading(false);
+            return;
+        }
+
+        let id;
         try {
+            id = toast.loading("Updating password...");
             const response = await axiosInstance.put("/api/auth/change-password", formData);
-            alert(response.data.message);
+
+            toast.success(response.data.message);
             setFormData({
                 currentPassword: "",
                 newPassword: "",
@@ -25,7 +38,10 @@ const Profile = () => {
             });
         }
         catch (error) {
-            alert(error.response.data.message);
+            toast.error(error.response.data.message);
+        } finally {
+            toast.dismiss(id);
+            setLoading(false);
         }
     };
 
@@ -127,6 +143,8 @@ const Profile = () => {
                                     className="form-control"
                                     placeholder="Enter current password"
                                     value={formData.currentPassword}
+                                    required
+                                    minLength={5}
                                     onChange={(e) =>
                                         setFormData({
                                             ...formData,
@@ -147,6 +165,8 @@ const Profile = () => {
                                     type="password"
                                     className="form-control"
                                     placeholder="Enter new password"
+                                    required
+                                    minLength={5}
                                     value={formData.newPassword}
                                     onChange={(e) =>
                                         setFormData({
@@ -180,9 +200,18 @@ const Profile = () => {
                             </div>
 
                             <button
+                                type="submit"
+                                disabled={loading}
                                 className="btn btn-custom-primary rounded-pill px-4"
                             >
-                                Update Password
+                                {loading ? (
+                                    <>
+                                        <span className="spinner-border spinner-border-sm me-2"></span>
+                                        Updating...
+                                    </>
+                                ) : (
+                                    "Update Password"
+                                )}
                             </button>
 
                         </form>

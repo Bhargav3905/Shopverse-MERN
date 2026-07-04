@@ -1,8 +1,17 @@
+import User from "../models/user.js";
 import sendEmail from "../utils/sendEmail.js";
 
 export const sendContactMessage = async (req, res) => {
     try {
         const { name, email, subject, message } = req.body;
+
+        const user = await User.findOne({ email });
+
+        if (!user) {
+            return res.status(404).json({
+                message: "Email is not registered."
+            });
+        }
 
         await sendEmail(
             process.env.ADMIN_EMAIL_ID,

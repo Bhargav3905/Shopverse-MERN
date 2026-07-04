@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import axiosInstance from "../services/axiosInstance";
+import toast from "react-hot-toast";
+import LoadingSpinner from "../components/LoadingSpinner";
 
 const Dashboard = () => {
 
@@ -11,7 +13,7 @@ const Dashboard = () => {
             setDashboard(response.data);
         }
         catch (error) {
-            alert(error);
+            toast.error(error.response?.data?.message || "Something went wrong");
         }
     };
 

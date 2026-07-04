@@ -1,12 +1,15 @@
 import { useState, useRef, useEffect } from 'react'
 import axiosInstance from '../services/axiosInstance';
 import { IMAGE_URL } from "../utils/helper";
+import toast from "react-hot-toast";
+import Swal from "sweetalert2";
 
 const ManageCategories = () => {
 
     const fileInputRef = useRef(null);
     const [categories, setCategories] = useState([]);
     const [editId, setEditId] = useState()
+    const [loading, setLoading] = useState(false);
 
     const [formData, setFormData] = useState({
         categoryName: "",
@@ -18,7 +21,7 @@ const ManageCategories = () => {
             const response = await axiosInstance.get("/api/category/list-category")
             setCategories(response.data.category);
         } catch (error) {
-            alert.log("Error fetching iecategors: ", error);
+            toast.error("Error fetching categories: ", error);
         }
     }
 
@@ -28,20 +31,24 @@ const ManageCategories = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setLoading(true);
 
         const form = new FormData();
 
         form.append("categoryName", formData.categoryName)
         form.append("image", formData.image)
 
+        let toastId;
         try {
-
             if (editId) {
+                toastId = toast.loading("Updating category...");
+
                 const response = await axiosInstance.put(`/api/category/edit-category/${editId}`, form)
-                alert(response.data.message)
+                toast.success(response.data.message)
             } else {
+                toastId = toast.loading("Adding category...");
                 const response = await axiosInstance.post('/api/category/add-category', form)
-                alert(response.data.message)
+                toast.success(response.data.message)
             }
             setEditId(null);
 
@@ -49,24 +56,46 @@ const ManageCategories = () => {
                 categoryName: "",
                 image: null
             })
-            
+
             if (fileInputRef.current) {
                 fileInputRef.current.value = null;
             }
-            
+
             fetchCategory()
         } catch (error) {
-            alert.log("Error", error);
+            toast.error(error.response?.data?.message || "Something went wrong");
+        } finally {
+            toast.dismiss(toastId);
+            setLoading(false);
         }
     }
 
     const handleDelete = async (id) => {
+
+        const result = await Swal.fire({
+            title: "Delete Category?",
+            text: "This action cannot be undone.",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#198754",
+            cancelButtonColor: "#dc3545",
+            confirmButtonText: "Yes, Delete",
+            cancelButtonText: "Cancel"
+        });
+
+        if (!result.isConfirmed) return;
+
+        let toastId;
         try {
+
+            toastId = toast.loading("Deleting category...");
             const response = await axiosInstance.delete(`/api/category/delete-category/${id}`)
-            alert(response.data.message)
+            toast.success(response.data.message)
             fetchCategory()
         } catch (error) {
-            alert("Error", error);
+            toast.error(error.response?.data?.message || "Something went wrong");
+        } finally {
+            toast.dismiss(toastId);
         }
     }
 
@@ -107,7 +136,7 @@ const ManageCategories = () => {
                         <form onSubmit={handleSubmit}>
                             <label>Category Name:</label>
                             <input value={formData.categoryName} className='form-control' type="text" name="categoryName" required
-                                onChange={(e) => setFormData({ ...formData, categoryName: e.target.value })} />
+                                minLength={3} onChange={(e) => setFormData({ ...formData, categoryName: e.target.value })} />
                             <br />
 
                             <label>Image:</label>
@@ -115,7 +144,16 @@ const ManageCategories = () => {
                                 onChange={(e) => setFormData({ ...formData, image: e.target.files[0] })} />
                             <br />
 
-                            <button className="btn btn-custom-primary rounded-pill px-4" type="submit">{editId ? "Update Category" : "Add Category"}</button>
+                            <button className="btn btn-custom-primary rounded-pill px-4" type="submit" disabled={loading}>
+                                {loading ? (
+                                    <>
+                                        <span className="spinner-border spinner-border-sm me-2"></span>
+                                        Please wait...
+                                    </>
+                                ) : (
+                                    editId ? "Update Category" : "Add Category"
+                                )}
+                            </button>
                         </form>
 
                     </div>

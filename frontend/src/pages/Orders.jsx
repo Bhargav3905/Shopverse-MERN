@@ -1,27 +1,39 @@
 import { useEffect, useState } from "react";
 import axiosInstance from "../services/axiosInstance";
 import { useLocation, useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
+import LoadingSpinner from "../components/LoadingSpinner";
 
 const Orders = () => {
 
     const [orders, setOrders] = useState([]);
+    const [loading, setLoading] = useState(true);
+
     const navigate = useNavigate();
     const location = useLocation();
     const paymentSuccess = location.state?.paymentSuccess;
 
     const fetchOrders = async () => {
         try {
+            setLoading(true);
+
             const response = await axiosInstance.get("/api/orders");
             setOrders(response.data.orders);
         }
         catch (error) {
-            alert(error);
+            toast.error(error.response?.data?.message || "Something went wrong.");
+        } finally {
+            setLoading(false);
         }
     };
 
     useEffect(() => {
         fetchOrders();
     }, []);
+
+    if (loading) {
+        return <LoadingSpinner />;
+    }
 
     return (
         <div className="container mt-5">
@@ -87,7 +99,7 @@ const Orders = () => {
                     </div>
                     :
                     orders.map((order) => (
-                        <div key={order._id} className="card mb-4 shadow-sm">
+                        <div key={`${order._id}-${order.product?._id}`} className="card mb-4 shadow-sm">
 
                             <div className="card-body">
                                 <div className="d-flex justify-content-between align-items-start flex-wrap">
@@ -116,10 +128,10 @@ const Orders = () => {
                                 <hr />
                                 {
                                     order.products.map((item) => (
-                                        <div className="d-flex justify-content-between align-items-center py-2">
+                                        <div key={item.product._id} className="d-flex justify-content-between align-items-center py-2">
                                             <div>
                                                 <h6 className="fw-bold mb-1">
-                                                    {item.product.productName}
+                                                    {item.product?.productName || "Product Removed"}
                                                 </h6>
                                                 <small className="text-muted">
                                                     Quantity : {item.quantity}
