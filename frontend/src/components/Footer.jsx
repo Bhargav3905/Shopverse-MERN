@@ -77,7 +77,7 @@ const Footer = () => {
                         </h5>
 
                         <p className="footer-text">
-                            bhargav@shopverse.com
+                            bhargavadmin1@gmail.com
                         </p>
 
                         <p className="footer-text">
